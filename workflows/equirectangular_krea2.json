@@ -1,0 +1,2526 @@
+{
+  "last_node_id": 200,
+  "last_link_id": 53,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "VAELoader",
+      "pos": [
+        2260,
+        298
+      ],
+      "size": [
+        320,
+        92
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "vae_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "vae_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            17,
+            20,
+            29,
+            35,
+            38,
+            47
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAELoader"
+      },
+      "widgets_values": [
+        "qwen_image_vae.safetensors"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "UNETLoader",
+      "pos": [
+        1520,
+        80
+      ],
+      "size": [
+        320,
+        120
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "unet_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "unet_name"
+          },
+          "link": null
+        },
+        {
+          "name": "weight_dtype",
+          "type": "COMBO",
+          "widget": {
+            "name": "weight_dtype"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UNETLoader"
+      },
+      "widgets_values": [
+        "krea2_turbo_fp8_scaled.safetensors",
+        "default"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "CLIPLoader",
+      "pos": [
+        2260,
+        80
+      ],
+      "size": [
+        320,
+        148
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "clip_name"
+          },
+          "link": null
+        },
+        {
+          "name": "type",
+          "type": "COMBO",
+          "widget": {
+            "name": "type"
+          },
+          "link": null
+        },
+        {
+          "name": "device",
+          "type": "COMBO",
+          "widget": {
+            "name": "device"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            16,
+            19,
+            34,
+            37
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPLoader"
+      },
+      "widgets_values": [
+        "qwen3vl_4b_fp8_scaled.safetensors",
+        "krea2",
+        "default"
+      ]
+    },
+    {
+      "id": 33,
+      "type": "Krea2OstrisEditModelPatch",
+      "pos": [
+        1520,
+        270
+      ],
+      "size": [
+        320,
+        92
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1
+        },
+        {
+          "name": "kv_cache",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "kv_cache"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Krea2OstrisEditModelPatch"
+      },
+      "widgets_values": [
+        true
+      ],
+      "title": "kv_cache = true (sinon restes verts)"
+    },
+    {
+      "id": 32,
+      "type": "LoraLoaderModelOnly",
+      "pos": [
+        1890,
+        80
+      ],
+      "size": [
+        320,
+        120
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 2
+        },
+        {
+          "name": "lora_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "lora_name"
+          },
+          "link": null
+        },
+        {
+          "name": "strength_model",
+          "type": "FLOAT",
+          "widget": {
+            "name": "strength_model"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoaderModelOnly"
+      },
+      "widgets_values": [
+        "krea2\\krea2_oedit_360_erp_outpaint_lora_v1.safetensors",
+        1.0
+      ]
+    },
+    {
+      "id": 31,
+      "type": "ModelSamplingFlux",
+      "pos": [
+        1890,
+        270
+      ],
+      "size": [
+        320,
+        176
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 3
+        },
+        {
+          "name": "max_shift",
+          "type": "FLOAT",
+          "widget": {
+            "name": "max_shift"
+          },
+          "link": null
+        },
+        {
+          "name": "base_shift",
+          "type": "FLOAT",
+          "widget": {
+            "name": "base_shift"
+          },
+          "link": null
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 4
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            24,
+            42
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ModelSamplingFlux"
+      },
+      "widgets_values": [
+        0.90625,
+        0.5,
+        1024,
+        1024
+      ]
+    },
+    {
+      "id": 25,
+      "type": "LoadImage",
+      "pos": [
+        2700,
+        80
+      ],
+      "size": [
+        340,
+        380
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "aa1eb3eac804bdcc1bbc8013eb93fb28.jpg",
+        "image"
+      ],
+      "title": "Photo de depart"
+    },
+    {
+      "id": 40,
+      "type": "PerspToERPCanvas",
+      "pos": [
+        3090,
+        80
+      ],
+      "size": [
+        320,
+        200
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 6
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": null
+        },
+        {
+          "name": "h_fov_deg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "h_fov_deg"
+          },
+          "link": null
+        },
+        {
+          "name": "pitch_deg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "pitch_deg"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "canvas",
+          "type": "IMAGE",
+          "links": [
+            7,
+            8,
+            18,
+            21,
+            51
+          ]
+        },
+        {
+          "name": "photo_mask",
+          "type": "MASK",
+          "links": [
+            49
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PerspToERPCanvas"
+      },
+      "widgets_values": [
+        1440,
+        720,
+        90.0,
+        0.0
+      ],
+      "title": "Projection de la photo (champ de vision 90 = normal, 110 = grand angle)"
+    },
+    {
+      "id": 43,
+      "type": "PreviewImage",
+      "pos": [
+        3460,
+        80
+      ],
+      "size": [
+        380,
+        260
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [],
+      "title": "Apercu canevas"
+    },
+    {
+      "id": 36,
+      "type": "GetImageSize",
+      "pos": [
+        3090,
+        350
+      ],
+      "size": [
+        320,
+        112
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            4,
+            9
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            5,
+            10
+          ]
+        },
+        {
+          "name": "batch_size",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GetImageSize"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 6,
+      "type": "EmptyLatentImage",
+      "pos": [
+        3090,
+        532
+      ],
+      "size": [
+        320,
+        148
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 9
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 10
+        },
+        {
+          "name": "batch_size",
+          "type": "INT",
+          "widget": {
+            "name": "batch_size"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            27,
+            45
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ]
+    },
+    {
+      "id": 104,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        20,
+        80
+      ],
+      "size": [
+        460,
+        220
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "A futuristic all-white interior, glossy white seamless floor, smooth white lacquered surfaces, cool neutral daylight. Only one TV and only one sofa in the whole room, the ones in the image. On both sides of the image the white walls simply continue, plain and empty. Behind the camera: a white dining area with a round glass table and four white chairs."
+      ],
+      "title": "A ADAPTER - Scene : style + objets uniques + derriere la camera"
+    },
+    {
+      "id": 105,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        530,
+        80
+      ],
+      "size": [
+        460,
+        220
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "The green area is a plain empty white wall with a sliding glass door to a balcony and empty white floor."
+      ],
+      "title": "A ADAPTER - Arriere : ce qui remplace le vert de la passe 2"
+    },
+    {
+      "id": 103,
+      "type": "StringConcatenate",
+      "pos": [
+        1040,
+        80
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "string_a",
+          "type": "STRING",
+          "widget": {
+            "name": "string_a"
+          },
+          "link": null
+        },
+        {
+          "name": "string_b",
+          "type": "STRING",
+          "widget": {
+            "name": "string_b"
+          },
+          "link": 11
+        },
+        {
+          "name": "delimiter",
+          "type": "STRING",
+          "widget": {
+            "name": "delimiter"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            15
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "StringConcatenate"
+      },
+      "widgets_values": [
+        "Fill the green spaces according to the image. Outpaint as a seamless 360 equirectangular panorama (2:1). Keep the horizon level. Match left and right edges.",
+        "",
+        " "
+      ],
+      "title": "Prompt passe 1 = officiel + scene"
+    },
+    {
+      "id": 107,
+      "type": "PrimitiveStringMultiline",
+      "pos": [
+        20,
+        370
+      ],
+      "size": [
+        460,
+        220
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "value",
+          "type": "STRING",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            12
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PrimitiveStringMultiline"
+      },
+      "widgets_values": [
+        "A futuristic all-white interior, glossy white seamless floor, smooth white lacquered surfaces, cool neutral daylight."
+      ],
+      "title": "A ADAPTER - Style seul (matieres, couleurs, lumiere, AUCUN meuble)"
+    },
+    {
+      "id": 108,
+      "type": "StringConcatenate",
+      "pos": [
+        1040,
+        330
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "string_a",
+          "type": "STRING",
+          "widget": {
+            "name": "string_a"
+          },
+          "link": null
+        },
+        {
+          "name": "string_b",
+          "type": "STRING",
+          "widget": {
+            "name": "string_b"
+          },
+          "link": 12
+        },
+        {
+          "name": "delimiter",
+          "type": "STRING",
+          "widget": {
+            "name": "delimiter"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            13
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "StringConcatenate"
+      },
+      "widgets_values": [
+        "Fill the green spaces according to the image. Outpaint as a seamless 360 equirectangular panorama (2:1). Keep the horizon level. Match left and right edges.",
+        "",
+        " "
+      ],
+      "title": "Officiel + style"
+    },
+    {
+      "id": 106,
+      "type": "StringConcatenate",
+      "pos": [
+        1040,
+        580
+      ],
+      "size": [
+        360,
+        180
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "string_a",
+          "type": "STRING",
+          "widget": {
+            "name": "string_a"
+          },
+          "link": 13
+        },
+        {
+          "name": "string_b",
+          "type": "STRING",
+          "widget": {
+            "name": "string_b"
+          },
+          "link": 14
+        },
+        {
+          "name": "delimiter",
+          "type": "STRING",
+          "widget": {
+            "name": "delimiter"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            33
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "StringConcatenate"
+      },
+      "widgets_values": [
+        "",
+        "",
+        " "
+      ],
+      "title": "Prompt passe 2 = officiel + style + arriere (sans meubles)"
+    },
+    {
+      "id": 34,
+      "type": "TextEncodeKrea2OstrisEdit",
+      "pos": [
+        20,
+        940
+      ],
+      "size": [
+        360,
+        200
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 16
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 15
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 17
+        },
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            22
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextEncodeKrea2OstrisEdit"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "Passe 1 +"
+    },
+    {
+      "id": 35,
+      "type": "TextEncodeKrea2OstrisEdit",
+      "pos": [
+        20,
+        1210
+      ],
+      "size": [
+        360,
+        200
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 19
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": null
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 20
+        },
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 21
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            23
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextEncodeKrea2OstrisEdit"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "Passe 1 -"
+    },
+    {
+      "id": 21,
+      "type": "FluxKontextMultiReferenceLatentMethod",
+      "pos": [
+        430,
+        940
+      ],
+      "size": [
+        320,
+        92
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 22
+        },
+        {
+          "name": "reference_latents_method",
+          "type": "COMBO",
+          "widget": {
+            "name": "reference_latents_method"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            25
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
+      },
+      "widgets_values": [
+        "index_timestep_zero"
+      ]
+    },
+    {
+      "id": 24,
+      "type": "FluxKontextMultiReferenceLatentMethod",
+      "pos": [
+        430,
+        1102
+      ],
+      "size": [
+        320,
+        92
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 23
+        },
+        {
+          "name": "reference_latents_method",
+          "type": "COMBO",
+          "widget": {
+            "name": "reference_latents_method"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            26
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
+      },
+      "widgets_values": [
+        "index_timestep_zero"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "KSampler",
+      "pos": [
+        800,
+        940
+      ],
+      "size": [
+        320,
+        332
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 24
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": null
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": null
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "cfg"
+          },
+          "link": null
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "sampler_name"
+          },
+          "link": null
+        },
+        {
+          "name": "scheduler",
+          "type": "COMBO",
+          "widget": {
+            "name": "scheduler"
+          },
+          "link": null
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 25
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 26
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 27
+        },
+        {
+          "name": "denoise",
+          "type": "FLOAT",
+          "widget": {
+            "name": "denoise"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            28
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        101,
+        "randomize",
+        10,
+        1.0,
+        "er_sde",
+        "simple",
+        1.0
+      ],
+      "title": "Passe 1 - panorama"
+    },
+    {
+      "id": 8,
+      "type": "VAEDecode",
+      "pos": [
+        1170,
+        940
+      ],
+      "size": [
+        320,
+        88
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 28
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 29
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            30,
+            31
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 9,
+      "type": "PreviewImage",
+      "pos": [
+        1170,
+        1098
+      ],
+      "size": [
+        380,
+        260
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 30
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [],
+      "title": "Apercu passe 1"
+    },
+    {
+      "id": 50,
+      "type": "ERPRoll",
+      "pos": [
+        1670,
+        940
+      ],
+      "size": [
+        320,
+        92
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 31
+        },
+        {
+          "name": "green_band",
+          "type": "FLOAT",
+          "widget": {
+            "name": "green_band"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            32,
+            36,
+            39
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ERPRoll"
+      },
+      "widgets_values": [
+        0.34
+      ],
+      "title": "Demi-tour + bande verte derriere la camera"
+    },
+    {
+      "id": 51,
+      "type": "PreviewImage",
+      "pos": [
+        1670,
+        1102
+      ],
+      "size": [
+        380,
+        260
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 32
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [],
+      "title": "Apercu canevas passe 2"
+    },
+    {
+      "id": 54,
+      "type": "TextEncodeKrea2OstrisEdit",
+      "pos": [
+        2100,
+        940
+      ],
+      "size": [
+        360,
+        200
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 34
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 33
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 35
+        },
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 36
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            40
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextEncodeKrea2OstrisEdit"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "Passe 2 +"
+    },
+    {
+      "id": 55,
+      "type": "TextEncodeKrea2OstrisEdit",
+      "pos": [
+        2100,
+        1210
+      ],
+      "size": [
+        360,
+        200
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 37
+        },
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": null
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 38
+        },
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 39
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            41
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TextEncodeKrea2OstrisEdit"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "Passe 2 -"
+    },
+    {
+      "id": 56,
+      "type": "FluxKontextMultiReferenceLatentMethod",
+      "pos": [
+        2510,
+        940
+      ],
+      "size": [
+        320,
+        92
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 40
+        },
+        {
+          "name": "reference_latents_method",
+          "type": "COMBO",
+          "widget": {
+            "name": "reference_latents_method"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            43
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
+      },
+      "widgets_values": [
+        "index_timestep_zero"
+      ]
+    },
+    {
+      "id": 57,
+      "type": "FluxKontextMultiReferenceLatentMethod",
+      "pos": [
+        2510,
+        1102
+      ],
+      "size": [
+        320,
+        92
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 41
+        },
+        {
+          "name": "reference_latents_method",
+          "type": "COMBO",
+          "widget": {
+            "name": "reference_latents_method"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            44
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
+      },
+      "widgets_values": [
+        "index_timestep_zero"
+      ]
+    },
+    {
+      "id": 60,
+      "type": "KSampler",
+      "pos": [
+        2880,
+        940
+      ],
+      "size": [
+        320,
+        332
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 42
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": null
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": null
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "cfg"
+          },
+          "link": null
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "sampler_name"
+          },
+          "link": null
+        },
+        {
+          "name": "scheduler",
+          "type": "COMBO",
+          "widget": {
+            "name": "scheduler"
+          },
+          "link": null
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 43
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 44
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 45
+        },
+        {
+          "name": "denoise",
+          "type": "FLOAT",
+          "widget": {
+            "name": "denoise"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            46
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        102,
+        "randomize",
+        10,
+        1.0,
+        "er_sde",
+        "simple",
+        1.0
+      ],
+      "title": "Passe 2 - arriere et couture"
+    },
+    {
+      "id": 61,
+      "type": "VAEDecode",
+      "pos": [
+        3250,
+        940
+      ],
+      "size": [
+        320,
+        88
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 46
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 47
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            48
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 62,
+      "type": "ERPRoll",
+      "pos": [
+        3250,
+        1098
+      ],
+      "size": [
+        320,
+        92
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 48
+        },
+        {
+          "name": "green_band",
+          "type": "FLOAT",
+          "widget": {
+            "name": "green_band"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            50
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ERPRoll"
+      },
+      "widgets_values": [
+        0.0
+      ],
+      "title": "Demi-tour inverse"
+    },
+    {
+      "id": 64,
+      "type": "GrowMaskWithBlur",
+      "pos": [
+        20,
+        1590
+      ],
+      "size": [
+        320,
+        312
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 49
+        },
+        {
+          "name": "expand",
+          "type": "INT",
+          "widget": {
+            "name": "expand"
+          },
+          "link": null
+        },
+        {
+          "name": "incremental_expandrate",
+          "type": "FLOAT",
+          "widget": {
+            "name": "incremental_expandrate"
+          },
+          "link": null
+        },
+        {
+          "name": "tapered_corners",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "tapered_corners"
+          },
+          "link": null
+        },
+        {
+          "name": "flip_input",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "flip_input"
+          },
+          "link": null
+        },
+        {
+          "name": "blur_radius",
+          "type": "FLOAT",
+          "widget": {
+            "name": "blur_radius"
+          },
+          "link": null
+        },
+        {
+          "name": "lerp_alpha",
+          "type": "FLOAT",
+          "widget": {
+            "name": "lerp_alpha"
+          },
+          "link": null
+        },
+        {
+          "name": "decay_factor",
+          "type": "FLOAT",
+          "widget": {
+            "name": "decay_factor"
+          },
+          "link": null
+        },
+        {
+          "name": "fill_holes",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "fill_holes"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            52
+          ]
+        },
+        {
+          "name": "mask_inverted",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GrowMaskWithBlur"
+      },
+      "widgets_values": [
+        -12,
+        0.0,
+        true,
+        false,
+        6.0,
+        1.0,
+        1.0,
+        false
+      ],
+      "title": "Collage doux (photo -12 px, flou 6)"
+    },
+    {
+      "id": 66,
+      "type": "ImageCompositeMasked",
+      "pos": [
+        20,
+        1972
+      ],
+      "size": [
+        320,
+        196
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "destination",
+          "type": "IMAGE",
+          "link": 50
+        },
+        {
+          "name": "source",
+          "type": "IMAGE",
+          "link": 51
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "widget": {
+            "name": "x"
+          },
+          "link": null
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "widget": {
+            "name": "y"
+          },
+          "link": null
+        },
+        {
+          "name": "resize_source",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "resize_source"
+          },
+          "link": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 52
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            53
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageCompositeMasked"
+      },
+      "widgets_values": [
+        0,
+        0,
+        false
+      ],
+      "title": "Recoller la photo de depart"
+    },
+    {
+      "id": 59,
+      "type": "SaveImage",
+      "pos": [
+        390,
+        1590
+      ],
+      "size": [
+        460,
+        340
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 53
+        },
+        {
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "krea2_360/pano_v2"
+      ]
+    },
+    {
+      "id": 200,
+      "type": "MarkdownNote",
+      "pos": [
+        -600,
+        0
+      ],
+      "size": [
+        540,
+        760
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "A telecharger / ou le mettre",
+      "properties": {},
+      "widgets_values": [
+        "# 360 depuis une photo - Krea 2 (2 passes)\n\n## Modeles (dans `ComfyUI/models/`)\n| Fichier | Dossier |\n|---|---|\n| [krea2_turbo_fp8_scaled.safetensors](https://huggingface.co/Comfy-Org/Krea-2/blob/main/diffusion_models/krea2_turbo_fp8_scaled.safetensors) | `diffusion_models/` |\n| [qwen3vl_4b_fp8_scaled.safetensors](https://huggingface.co/Comfy-Org/Krea-2/blob/main/text_encoders/qwen3vl_4b_fp8_scaled.safetensors) | `text_encoders/` |\n| [qwen_image_vae.safetensors](https://huggingface.co/Comfy-Org/Krea-2/blob/main/vae/qwen_image_vae.safetensors) | `vae/` |\n| [krea2_oedit_360_erp_outpaint_lora_v1.safetensors](https://huggingface.co/mickmumpitz/Krea2-360-ERP-LoRAs/blob/main/krea2_oedit_360_erp_outpaint_lora_v1.safetensors) | `loras/krea2/` |\n\nSi la LoRA est rangee ailleurs dans `loras/`, la reselectionner dans le noeud LoRA.\n\n## Custom nodes (dans `ComfyUI/custom_nodes/`)\n- **ComfyUI-PerspToERP** (projection de la photo + demi-tour) : https://github.com/shisa84/ComfyUI-PerspToERP\n- **ComfyUI-Krea2-Ostris-Edit** : https://github.com/ostris/ComfyUI-Krea2-Ostris-Edit\n- **ComfyUI-KJNodes** (collage doux de la photo) : https://github.com/kijai/ComfyUI-KJNodes\n\nApres installation : redemarrer ComfyUI.\n\n## Reglages a adapter\n- **Photo de depart** : charger la photo.\n- **Champ de vision** (`h_fov_deg`) : 90 = photo d'interieur normale, 110 = grand angle, 65 = photo en portrait.\n- **Textes** : les champs dont le titre commence par \"A ADAPTER\".\n- **Scene** sert a la passe 1 ; **Style seul** (aucun meuble) et **Arriere** servent a la passe 2.\n- 10 etapes par passe ; 6 etapes vont plus vite pour un resultat proche.\n"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      33,
+      0,
+      "MODEL"
+    ],
+    [
+      2,
+      33,
+      0,
+      32,
+      0,
+      "MODEL"
+    ],
+    [
+      3,
+      32,
+      0,
+      31,
+      0,
+      "MODEL"
+    ],
+    [
+      4,
+      36,
+      0,
+      31,
+      3,
+      "INT"
+    ],
+    [
+      5,
+      36,
+      1,
+      31,
+      4,
+      "INT"
+    ],
+    [
+      6,
+      25,
+      0,
+      40,
+      0,
+      "IMAGE"
+    ],
+    [
+      7,
+      40,
+      0,
+      43,
+      0,
+      "IMAGE"
+    ],
+    [
+      8,
+      40,
+      0,
+      36,
+      0,
+      "IMAGE"
+    ],
+    [
+      9,
+      36,
+      0,
+      6,
+      0,
+      "INT"
+    ],
+    [
+      10,
+      36,
+      1,
+      6,
+      1,
+      "INT"
+    ],
+    [
+      11,
+      104,
+      0,
+      103,
+      1,
+      "STRING"
+    ],
+    [
+      12,
+      107,
+      0,
+      108,
+      1,
+      "STRING"
+    ],
+    [
+      13,
+      108,
+      0,
+      106,
+      0,
+      "STRING"
+    ],
+    [
+      14,
+      105,
+      0,
+      106,
+      1,
+      "STRING"
+    ],
+    [
+      15,
+      103,
+      0,
+      34,
+      1,
+      "STRING"
+    ],
+    [
+      16,
+      3,
+      0,
+      34,
+      0,
+      "CLIP"
+    ],
+    [
+      17,
+      1,
+      0,
+      34,
+      2,
+      "VAE"
+    ],
+    [
+      18,
+      40,
+      0,
+      34,
+      3,
+      "IMAGE"
+    ],
+    [
+      19,
+      3,
+      0,
+      35,
+      0,
+      "CLIP"
+    ],
+    [
+      20,
+      1,
+      0,
+      35,
+      2,
+      "VAE"
+    ],
+    [
+      21,
+      40,
+      0,
+      35,
+      3,
+      "IMAGE"
+    ],
+    [
+      22,
+      34,
+      0,
+      21,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      23,
+      35,
+      0,
+      24,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      24,
+      31,
+      0,
+      7,
+      0,
+      "MODEL"
+    ],
+    [
+      25,
+      21,
+      0,
+      7,
+      6,
+      "CONDITIONING"
+    ],
+    [
+      26,
+      24,
+      0,
+      7,
+      7,
+      "CONDITIONING"
+    ],
+    [
+      27,
+      6,
+      0,
+      7,
+      8,
+      "LATENT"
+    ],
+    [
+      28,
+      7,
+      0,
+      8,
+      0,
+      "LATENT"
+    ],
+    [
+      29,
+      1,
+      0,
+      8,
+      1,
+      "VAE"
+    ],
+    [
+      30,
+      8,
+      0,
+      9,
+      0,
+      "IMAGE"
+    ],
+    [
+      31,
+      8,
+      0,
+      50,
+      0,
+      "IMAGE"
+    ],
+    [
+      32,
+      50,
+      0,
+      51,
+      0,
+      "IMAGE"
+    ],
+    [
+      33,
+      106,
+      0,
+      54,
+      1,
+      "STRING"
+    ],
+    [
+      34,
+      3,
+      0,
+      54,
+      0,
+      "CLIP"
+    ],
+    [
+      35,
+      1,
+      0,
+      54,
+      2,
+      "VAE"
+    ],
+    [
+      36,
+      50,
+      0,
+      54,
+      3,
+      "IMAGE"
+    ],
+    [
+      37,
+      3,
+      0,
+      55,
+      0,
+      "CLIP"
+    ],
+    [
+      38,
+      1,
+      0,
+      55,
+      2,
+      "VAE"
+    ],
+    [
+      39,
+      50,
+      0,
+      55,
+      3,
+      "IMAGE"
+    ],
+    [
+      40,
+      54,
+      0,
+      56,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      41,
+      55,
+      0,
+      57,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      42,
+      31,
+      0,
+      60,
+      0,
+      "MODEL"
+    ],
+    [
+      43,
+      56,
+      0,
+      60,
+      6,
+      "CONDITIONING"
+    ],
+    [
+      44,
+      57,
+      0,
+      60,
+      7,
+      "CONDITIONING"
+    ],
+    [
+      45,
+      6,
+      0,
+      60,
+      8,
+      "LATENT"
+    ],
+    [
+      46,
+      60,
+      0,
+      61,
+      0,
+      "LATENT"
+    ],
+    [
+      47,
+      1,
+      0,
+      61,
+      1,
+      "VAE"
+    ],
+    [
+      48,
+      61,
+      0,
+      62,
+      0,
+      "IMAGE"
+    ],
+    [
+      49,
+      40,
+      1,
+      64,
+      0,
+      "MASK"
+    ],
+    [
+      50,
+      62,
+      0,
+      66,
+      0,
+      "IMAGE"
+    ],
+    [
+      51,
+      40,
+      0,
+      66,
+      1,
+      "IMAGE"
+    ],
+    [
+      52,
+      64,
+      0,
+      66,
+      5,
+      "MASK"
+    ],
+    [
+      53,
+      66,
+      0,
+      59,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "title": "0 · Textes a adapter a chaque photo",
+      "bounding": [
+        0,
+        0,
+        1420,
+        780
+      ],
+      "color": "#a1309b",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "1 · Modeles",
+      "bounding": [
+        1500,
+        0,
+        1100,
+        466
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "2 · Photo -> canevas 360",
+      "bounding": [
+        2680,
+        0,
+        1180,
+        700
+      ],
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "3 · Passe 1 : panorama",
+      "bounding": [
+        0,
+        860,
+        1570,
+        570
+      ],
+      "color": "#b06634",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "4 · Passe 2 : arriere + couture gauche/droite",
+      "bounding": [
+        1650,
+        860,
+        1940,
+        570
+      ],
+      "color": "#88A",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "5 · Recoller la photo + resultat",
+      "bounding": [
+        0,
+        1510,
+        870,
+        678
+      ],
+      "color": "#444",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}
