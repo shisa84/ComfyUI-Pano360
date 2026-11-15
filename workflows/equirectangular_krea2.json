@@ -201,7 +201,7 @@
       "widgets_values": [
         true
       ],
-      "title": "kv_cache = true (sinon restes verts)"
+      "title": "kv_cache = true (otherwise green residue)"
     },
     {
       "id": 32,
@@ -253,7 +253,7 @@
         "Node name for S&R": "LoraLoaderModelOnly"
       },
       "widgets_values": [
-        "krea2\\krea2_oedit_360_erp_outpaint_lora_v1.safetensors",
+        "krea2_oedit_360_erp_outpaint_lora_v1.safetensors",
         1.0
       ]
     },
@@ -375,7 +375,7 @@
         "aa1eb3eac804bdcc1bbc8013eb93fb28.jpg",
         "image"
       ],
-      "title": "Photo de depart"
+      "title": "Input photo"
     },
     {
       "id": 40,
@@ -459,7 +459,7 @@
         90.0,
         0.0
       ],
-      "title": "Projection de la photo (champ de vision 90 = normal, 110 = grand angle)"
+      "title": "Photo projection (field of view 90 = normal, 110 = wide angle)"
     },
     {
       "id": 43,
@@ -493,7 +493,7 @@
         "Node name for S&R": "PreviewImage"
       },
       "widgets_values": [],
-      "title": "Apercu canevas"
+      "title": "Canvas preview"
     },
     {
       "id": 36,
@@ -642,7 +642,7 @@
       "widgets_values": [
         "A futuristic all-white interior, glossy white seamless floor, smooth white lacquered surfaces, cool neutral daylight. Only one TV and only one sofa in the whole room, the ones in the image. On both sides of the image the white walls simply continue, plain and empty. Behind the camera: a white dining area with a round glass table and four white chairs."
       ],
-      "title": "A ADAPTER - Scene : style + objets uniques + derriere la camera"
+      "title": "EDIT ME - Scene: style + unique objects + what is behind the camera"
     },
     {
       "id": 105,
@@ -683,7 +683,7 @@
       "widgets_values": [
         "The green area is a plain empty white wall with a sliding glass door to a balcony and empty white floor."
       ],
-      "title": "A ADAPTER - Arriere : ce qui remplace le vert de la passe 2"
+      "title": "EDIT ME - Back: what replaces the green band in pass 2"
     },
     {
       "id": 103,
@@ -742,7 +742,7 @@
         "",
         " "
       ],
-      "title": "Prompt passe 1 = officiel + scene"
+      "title": "Pass 1 prompt = trigger + scene"
     },
     {
       "id": 107,
@@ -783,7 +783,7 @@
       "widgets_values": [
         "A futuristic all-white interior, glossy white seamless floor, smooth white lacquered surfaces, cool neutral daylight."
       ],
-      "title": "A ADAPTER - Style seul (matieres, couleurs, lumiere, AUCUN meuble)"
+      "title": "EDIT ME - Style only (materials, colours, light, NO furniture)"
     },
     {
       "id": 108,
@@ -842,7 +842,7 @@
         "",
         " "
       ],
-      "title": "Officiel + style"
+      "title": "Trigger + style"
     },
     {
       "id": 106,
@@ -901,7 +901,7 @@
         "",
         " "
       ],
-      "title": "Prompt passe 2 = officiel + style + arriere (sans meubles)"
+      "title": "Pass 2 prompt = trigger + style + back (no furniture)"
     },
     {
       "id": 34,
@@ -957,7 +957,7 @@
       "widgets_values": [
         ""
       ],
-      "title": "Passe 1 +"
+      "title": "Pass 1 +"
     },
     {
       "id": 35,
@@ -1013,7 +1013,7 @@
       "widgets_values": [
         ""
       ],
-      "title": "Passe 1 -"
+      "title": "Pass 1 -"
     },
     {
       "id": 21,
@@ -1210,7 +1210,7 @@
         "simple",
         1.0
       ],
-      "title": "Passe 1 - panorama"
+      "title": "Pass 1 - panorama"
     },
     {
       "id": 8,
@@ -1285,7 +1285,7 @@
         "Node name for S&R": "PreviewImage"
       },
       "widgets_values": [],
-      "title": "Apercu passe 1"
+      "title": "Pass 1 preview"
     },
     {
       "id": 50,
@@ -1333,7 +1333,7 @@
       "widgets_values": [
         0.34
       ],
-      "title": "Demi-tour + bande verte derriere la camera"
+      "title": "Roll 180 + green band behind the camera"
     },
     {
       "id": 51,
@@ -1367,7 +1367,7 @@
         "Node name for S&R": "PreviewImage"
       },
       "widgets_values": [],
-      "title": "Apercu canevas passe 2"
+      "title": "Pass 2 canvas preview"
     },
     {
       "id": 54,
@@ -1423,7 +1423,7 @@
       "widgets_values": [
         ""
       ],
-      "title": "Passe 2 +"
+      "title": "Pass 2 +"
     },
     {
       "id": 55,
@@ -1479,7 +1479,7 @@
       "widgets_values": [
         ""
       ],
-      "title": "Passe 2 -"
+      "title": "Pass 2 -"
     },
     {
       "id": 56,
@@ -1676,7 +1676,7 @@
         "simple",
         1.0
       ],
-      "title": "Passe 2 - arriere et couture"
+      "title": "Pass 2 - back and wrap seam"
     },
     {
       "id": 61,
@@ -1762,7 +1762,7 @@
       "widgets_values": [
         0.0
       ],
-      "title": "Demi-tour inverse"
+      "title": "Roll back"
     },
     {
       "id": 64,
@@ -1876,7 +1876,7 @@
         1.0,
         false
       ],
-      "title": "Collage doux (photo -12 px, flou 6)"
+      "title": "Soft paste mask (photo -12 px, blur 6)"
     },
     {
       "id": 66,
@@ -1950,7 +1950,7 @@
         0,
         false
       ],
-      "title": "Recoller la photo de depart"
+      "title": "Paste the input photo back"
     },
     {
       "id": 59,
@@ -2014,7 +2014,7 @@
       "title": "What to download / where to put it",
       "properties": {},
       "widgets_values": [
-        "# 360 panorama from one photo - Krea 2 (2 passes)\n\n## Models (in `ComfyUI/models/`)\n| File | Folder |\n|---|---|\n| [krea2_turbo_fp8_scaled.safetensors](https://huggingface.co/Comfy-Org/Krea-2/blob/main/diffusion_models/krea2_turbo_fp8_scaled.safetensors) | `diffusion_models/` |\n| [qwen3vl_4b_fp8_scaled.safetensors](https://huggingface.co/Comfy-Org/Krea-2/blob/main/text_encoders/qwen3vl_4b_fp8_scaled.safetensors) | `text_encoders/` |\n| [qwen_image_vae.safetensors](https://huggingface.co/Comfy-Org/Krea-2/blob/main/vae/qwen_image_vae.safetensors) | `vae/` |\n| [krea2_oedit_360_erp_outpaint_lora_v1.safetensors](https://huggingface.co/mickmumpitz/Krea2-360-ERP-LoRAs/blob/main/krea2_oedit_360_erp_outpaint_lora_v1.safetensors) | `loras/krea2/` |\n\nIf the LoRA is stored elsewhere under `loras/`, reselect it in the LoRA node.\n\n## Custom nodes (in `ComfyUI/custom_nodes/`)\n- **ComfyUI-PerspToERP** (photo projection + 180 degree roll): https://github.com/shisa84/ComfyUI-PerspToERP\n- **ComfyUI-Krea2-Ostris-Edit**: https://github.com/ostris/ComfyUI-Krea2-Ostris-Edit\n- **ComfyUI-KJNodes** (soft paste of the photo): https://github.com/kijai/ComfyUI-KJNodes\n\nRestart ComfyUI after installing.\n\n## Settings to adapt\n- **Photo de depart**: load your photo.\n- **Field of view** (`h_fov_deg`): 90 = normal interior photo, 110 = wide angle, 65 = portrait photo.\n- **Texts**: the fields whose title starts with \"A ADAPTER\".\n- **Scene** is used by pass 1; **Style seul** (style only, no furniture words) and **Arriere** (what is behind the camera) are used by pass 2.\n- 10 steps per pass; 6 steps is faster with a similar result.\n"
+        "# 360 panorama from one photo - Krea 2 (2 passes)\n\n## Models (in `ComfyUI/models/`)\n| File | Folder |\n|---|---|\n| [krea2_turbo_fp8_scaled.safetensors](https://huggingface.co/Comfy-Org/Krea-2/blob/main/diffusion_models/krea2_turbo_fp8_scaled.safetensors) | `diffusion_models/` |\n| [qwen3vl_4b_fp8_scaled.safetensors](https://huggingface.co/Comfy-Org/Krea-2/blob/main/text_encoders/qwen3vl_4b_fp8_scaled.safetensors) | `text_encoders/` |\n| [qwen_image_vae.safetensors](https://huggingface.co/Comfy-Org/Krea-2/blob/main/vae/qwen_image_vae.safetensors) | `vae/` |\n| [krea2_oedit_360_erp_outpaint_lora_v1.safetensors](https://huggingface.co/mickmumpitz/Krea2-360-ERP-LoRAs/blob/main/krea2_oedit_360_erp_outpaint_lora_v1.safetensors) | `loras/` |\n\nAny subfolder of `loras/` works: just select the file in the LoRA node.\n\n## Custom nodes (in `ComfyUI/custom_nodes/`)\n- **ComfyUI-PerspToERP** (photo projection + 180 degree roll): https://github.com/shisa84/ComfyUI-PerspToERP\n- **ComfyUI-Krea2-Ostris-Edit**: https://github.com/ostris/ComfyUI-Krea2-Ostris-Edit\n- **ComfyUI-KJNodes** (soft paste of the photo): https://github.com/kijai/ComfyUI-KJNodes\n\nRestart ComfyUI after installing.\n\n## Settings to adapt\n- **Input photo**: load your photo.\n- **Field of view** (`h_fov_deg`): 90 = normal interior photo, 110 = wide angle, 65 = portrait photo.\n- **Texts**: the fields whose title starts with \"EDIT ME\".\n- **Scene** is used by pass 1; **Style only** (no furniture words) and **Back** (what is behind the camera) are used by pass 2.\n- 10 steps per pass; 6 steps is faster with a similar result.\n"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -2448,7 +2448,7 @@
   ],
   "groups": [
     {
-      "title": "0 · Textes a adapter a chaque photo",
+      "title": "0 · Texts to edit for each photo",
       "bounding": [
         0,
         0,
@@ -2460,7 +2460,7 @@
       "flags": {}
     },
     {
-      "title": "1 · Modeles",
+      "title": "1 · Models",
       "bounding": [
         1500,
         0,
@@ -2472,7 +2472,7 @@
       "flags": {}
     },
     {
-      "title": "2 · Photo -> canevas 360",
+      "title": "2 · Photo -> 360 canvas",
       "bounding": [
         2680,
         0,
@@ -2484,7 +2484,7 @@
       "flags": {}
     },
     {
-      "title": "3 · Passe 1 : panorama",
+      "title": "3 · Pass 1: panorama",
       "bounding": [
         0,
         860,
@@ -2496,7 +2496,7 @@
       "flags": {}
     },
     {
-      "title": "4 · Passe 2 : arriere + couture gauche/droite",
+      "title": "4 · Pass 2: back + left/right seam",
       "bounding": [
         1650,
         860,
@@ -2508,7 +2508,7 @@
       "flags": {}
     },
     {
-      "title": "5 · Recoller la photo + resultat",
+      "title": "5 · Paste the photo back + result",
       "bounding": [
         0,
         1510,

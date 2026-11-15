@@ -201,10 +201,10 @@
         "Node name for S&R": "LoraLoaderModelOnly"
       },
       "widgets_values": [
-        "pano360\\flux-2-klein-9B-360-erp-outpaint-lora_V1.safetensors",
+        "flux-2-klein-9B-360-erp-outpaint-lora_V1.safetensors",
         1.5
       ],
-      "title": "LoRA 360 (1.5 = photo mieux respectee, 0.9 = photo agrandie)"
+      "title": "360 LoRA (1.5 = photo better respected, 0.9 = photo enlarged)"
     },
     {
       "id": 25,
@@ -251,7 +251,7 @@
         "aa1eb3eac804bdcc1bbc8013eb93fb28.jpg",
         "image"
       ],
-      "title": "Photo de depart"
+      "title": "Input photo"
     },
     {
       "id": 40,
@@ -331,7 +331,7 @@
         90.0,
         0.0
       ],
-      "title": "Projection de la photo (champ de vision 90 = normal, 110 = grand angle)"
+      "title": "Photo projection (field of view 90 = normal, 110 = wide angle)"
     },
     {
       "id": 43,
@@ -365,7 +365,7 @@
         "Node name for S&R": "PreviewImage"
       },
       "widgets_values": [],
-      "title": "Apercu canevas"
+      "title": "Canvas preview"
     },
     {
       "id": 36,
@@ -511,7 +511,7 @@
       "widgets_values": [
         "A futuristic all-white interior, glossy white seamless floor, smooth white lacquered surfaces, cool neutral daylight. Only one TV and only one sofa in the whole room, the ones in the image. On both sides of the image the white walls simply continue, plain and empty. Behind the camera: a white dining area with a round glass table and four white chairs."
       ],
-      "title": "A ADAPTER - Scene : style + objets uniques + derriere la camera"
+      "title": "EDIT ME - Scene: style + unique objects + what is behind the camera"
     },
     {
       "id": 103,
@@ -570,7 +570,7 @@
         "",
         " "
       ],
-      "title": "Prompt = officiel + scene"
+      "title": "Prompt = trigger + scene"
     },
     {
       "id": 10,
@@ -993,7 +993,7 @@
       "title": "What to download / where to put it",
       "properties": {},
       "widgets_values": [
-        "# 360 panorama from one photo - FLUX.2 Klein 9B (fast, 1 pass)\n\n## Models (in `ComfyUI/models/`)\n| File | Folder |\n|---|---|\n| [flux-2-klein-9b-fp8.safetensors](https://huggingface.co/black-forest-labs/FLUX.2-klein-9b-fp8/blob/main/flux-2-klein-9b-fp8.safetensors) | `diffusion_models/` |\n| [qwen_3_8b_fp8mixed.safetensors](https://huggingface.co/Comfy-Org/Flux-2-Klein-9B/blob/main/split_files/text_encoders/qwen_3_8b_fp8mixed.safetensors) | `text_encoders/` |\n| [flux2-vae.safetensors](https://huggingface.co/Comfy-Org/Flux-2-Klein-9B/blob/main/split_files/vae/flux2-vae.safetensors) | `vae/` |\n| [flux-2-klein-9B-360-erp-outpaint-lora_V1.safetensors](https://huggingface.co/nomadoor/flux-2-klein-9B-360-erp-outpaint-lora/blob/main/flux-2-klein-9B-360-erp-outpaint-lora_V1.safetensors) | `loras/pano360/` |\n\nIf the LoRA is stored elsewhere under `loras/`, reselect it in the LoRA node.\n\n## Custom nodes (in `ComfyUI/custom_nodes/`)\n- **ComfyUI-PerspToERP** (photo projection + 180 degree roll): https://github.com/shisa84/ComfyUI-PerspToERP\n\nRestart ComfyUI after installing.\n\n## Settings to adapt\n- **Photo de depart**: load your photo.\n- **Field of view** (`h_fov_deg`): 90 = normal interior photo, 110 = wide angle, 65 = portrait photo.\n- **Texts**: the fields whose title starts with \"A ADAPTER\".\n- Klein redraws the photo: it is not pasted back pixel for pixel.\n- LoRA at 1.5 = photo better respected; 0.9 = photo enlarged.\n"
+        "# 360 panorama from one photo - FLUX.2 Klein 9B (fast, 1 pass)\n\n## Models (in `ComfyUI/models/`)\n| File | Folder |\n|---|---|\n| [flux-2-klein-9b-fp8.safetensors](https://huggingface.co/black-forest-labs/FLUX.2-klein-9b-fp8/blob/main/flux-2-klein-9b-fp8.safetensors) | `diffusion_models/` |\n| [qwen_3_8b_fp8mixed.safetensors](https://huggingface.co/Comfy-Org/Flux-2-Klein-9B/blob/main/split_files/text_encoders/qwen_3_8b_fp8mixed.safetensors) | `text_encoders/` |\n| [flux2-vae.safetensors](https://huggingface.co/Comfy-Org/Flux-2-Klein-9B/blob/main/split_files/vae/flux2-vae.safetensors) | `vae/` |\n| [flux-2-klein-9B-360-erp-outpaint-lora_V1.safetensors](https://huggingface.co/nomadoor/flux-2-klein-9B-360-erp-outpaint-lora/blob/main/flux-2-klein-9B-360-erp-outpaint-lora_V1.safetensors) | `loras/` |\n\nAny subfolder of `loras/` works: just select the file in the LoRA node.\n\n## Custom nodes (in `ComfyUI/custom_nodes/`)\n- **ComfyUI-PerspToERP** (photo projection + 180 degree roll): https://github.com/shisa84/ComfyUI-PerspToERP\n\nRestart ComfyUI after installing.\n\n## Settings to adapt\n- **Input photo**: load your photo.\n- **Field of view** (`h_fov_deg`): 90 = normal interior photo, 110 = wide angle, 65 = portrait photo.\n- **Texts**: the fields whose title starts with \"EDIT ME\".\n- Klein redraws the photo: it is not pasted back pixel for pixel.\n- LoRA at 1.5 = photo better respected; 0.9 = photo enlarged.\n"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -1187,7 +1187,7 @@
   ],
   "groups": [
     {
-      "title": "0 · Texte a adapter a chaque photo",
+      "title": "0 · Text to edit for each photo",
       "bounding": [
         0,
         0,
@@ -1199,7 +1199,7 @@
       "flags": {}
     },
     {
-      "title": "1 · Modeles",
+      "title": "1 · Models",
       "bounding": [
         990,
         0,
@@ -1211,7 +1211,7 @@
       "flags": {}
     },
     {
-      "title": "2 · Photo -> canevas 360",
+      "title": "2 · Photo -> 360 canvas",
       "bounding": [
         1800,
         0,
@@ -1223,7 +1223,7 @@
       "flags": {}
     },
     {
-      "title": "3 · Generation (Klein 9B, 4 etapes)",
+      "title": "3 · Generation (Klein 9B, 4 steps)",
       "bounding": [
         0,
         780,
