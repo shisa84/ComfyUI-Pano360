@@ -4,14 +4,14 @@
  "nodes": [
   {
    "id": 300,
-   "type": "LoadImage",
+   "type": "Load360Image",
    "pos": [
     20,
     80
    ],
    "size": [
     340,
-    380
+    420
    ],
    "flags": {},
    "order": 0,
@@ -24,21 +24,15 @@
      "links": [
       1
      ]
-    },
-    {
-     "name": "MASK",
-     "type": "MASK",
-     "links": []
     }
    ],
    "properties": {
-    "Node name for S&R": "LoadImage"
+    "Node name for S&R": "Load360Image"
    },
    "widgets_values": [
-    "example.png",
-    "image"
+    "example.png"
    ],
-   "title": "Input 360 panorama (2:1 equirectangular)"
+   "title": "Input 360 panorama (drag to look around)"
   },
   {
    "id": 301,
@@ -342,7 +336,7 @@
     80
    ],
    "size": [
-    640,
+    460,
     90
    ],
    "flags": {},
@@ -426,7 +420,7 @@
     320
    ],
    "size": [
-    640,
+    460,
     120
    ],
    "flags": {},
@@ -485,7 +479,7 @@
     520
    ],
    "size": [
-    640,
+    460,
     70
    ],
    "flags": {},
@@ -526,7 +520,7 @@
     650
    ],
    "size": [
-    650,
+    460,
     70
    ],
    "flags": {},
@@ -1232,8 +1226,8 @@
     560
    ],
    "size": [
-    1049.2986111506636,
-    700.9436728614797
+    520,
+    460
    ],
    "flags": {},
    "order": 22,
@@ -1601,8 +1595,8 @@
    "bounding": [
     1680,
     0,
-    1340,
-    1000
+    1440,
+    1090
    ],
    "color": "#b58b2a",
    "font_size": 24,

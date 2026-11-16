@@ -4,14 +4,14 @@
  "nodes": [
   {
    "id": 300,
-   "type": "LoadImage",
+   "type": "Load360Image",
    "pos": [
     20,
     80
    ],
    "size": [
     340,
-    380
+    420
    ],
    "flags": {},
    "order": 0,
@@ -24,21 +24,15 @@
      "links": [
       1
      ]
-    },
-    {
-     "name": "MASK",
-     "type": "MASK",
-     "links": []
     }
    ],
    "properties": {
-    "Node name for S&R": "LoadImage"
+    "Node name for S&R": "Load360Image"
    },
    "widgets_values": [
-    "example.png",
-    "image"
+    "example.png"
    ],
-   "title": "Input 360 panorama (2:1 equirectangular)"
+   "title": "Input 360 panorama (drag to look around)"
   },
   {
    "id": 301,

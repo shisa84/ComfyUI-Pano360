@@ -9,6 +9,10 @@ import math
 import torch
 import torch.nn.functional as F
 
+from nodes import LoadImage
+
+WEB_DIRECTORY = "./web"
+
 GREEN = (0.0, 1.0, 0.0)  # the LoRA's "fill me" colour, pure #00FF00
 
 
@@ -133,5 +137,22 @@ class ERPToViews:
         return (batch, sheet.unsqueeze(0))
 
 
-NODE_CLASS_MAPPINGS = {"PerspToERPCanvas": PerspToERPCanvas, "ERPRoll": ERPRoll, "ERPToViews": ERPToViews}
-NODE_DISPLAY_NAME_MAPPINGS = {"PerspToERPCanvas": "Photo -> 360 canvas (perspective warp)", "ERPRoll": "360 Roll 180 (+ green back band)", "ERPToViews": "360 -> camera views + sheet"}
+class Load360Image:
+    @classmethod
+    def INPUT_TYPES(cls):
+        # no "image_upload" flag: it would add the flat preview, and web/pano360_viewer.js draws the 360 one
+        return {"required": {"image": (LoadImage.INPUT_TYPES()["required"]["image"][0],)}}
+
+    RETURN_TYPES = ("IMAGE",)
+    FUNCTION = "load"
+    CATEGORY = "image/360"
+    DESCRIPTION = "Load a 2:1 equirectangular panorama and look around in it: drag to turn, wheel to zoom."
+    IS_CHANGED = LoadImage.IS_CHANGED
+    VALIDATE_INPUTS = LoadImage.VALIDATE_INPUTS
+
+    def load(self, image):
+        return (LoadImage().load_image(image)[0],)
+
+
+NODE_CLASS_MAPPINGS = {"PerspToERPCanvas": PerspToERPCanvas, "ERPRoll": ERPRoll, "ERPToViews": ERPToViews, "Load360Image": Load360Image}
+NODE_DISPLAY_NAME_MAPPINGS = {"PerspToERPCanvas": "Photo -> 360 canvas (perspective warp)", "ERPRoll": "360 Roll 180 (+ green back band)", "ERPToViews": "360 -> camera views + sheet", "Load360Image": "Load 360 Image (viewer)"}
