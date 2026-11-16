@@ -1,0 +1,1615 @@
+{
+ "last_node_id": 390,
+ "last_link_id": 29,
+ "nodes": [
+  {
+   "id": 300,
+   "type": "LoadImage",
+   "pos": [
+    20,
+    80
+   ],
+   "size": [
+    340,
+    380
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      1
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "example.png",
+    "image"
+   ],
+   "title": "Input 360 panorama (2:1 equirectangular)"
+  },
+  {
+   "id": 301,
+   "type": "ERPToViews",
+   "pos": [
+    400,
+    80
+   ],
+   "size": [
+    340,
+    220
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "image",
+     "type": "IMAGE",
+     "link": 1
+    }
+   ],
+   "outputs": [
+    {
+     "name": "views",
+     "type": "IMAGE",
+     "links": []
+    },
+    {
+     "name": "sheet",
+     "type": "IMAGE",
+     "links": [
+      2,
+      3
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ERPToViews"
+   },
+   "widgets_values": [
+    6,
+    800,
+    448,
+    90.0,
+    0.0,
+    24
+   ],
+   "title": "Views (6 x 90 deg = 30 deg overlap on each side)"
+  },
+  {
+   "id": 302,
+   "type": "PreviewImage",
+   "pos": [
+    800,
+    80
+   ],
+   "size": [
+    300,
+    620
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 2
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "PreviewImage"
+   },
+   "title": "Sheet = <Picture 1>"
+  },
+  {
+   "id": 138,
+   "type": "PrimitiveStringMultiline",
+   "pos": [
+    20,
+    880
+   ],
+   "size": [
+    1100,
+    560
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "value",
+     "type": "STRING",
+     "widget": {
+      "name": "value"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "STRING",
+     "type": "STRING",
+     "links": [
+      7
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "PrimitiveStringMultiline"
+   },
+   "widgets_values": [
+    "subject_definitions:\n<Subject 1> is one single luxury seaside living room at dusk. <Picture 1> is a storyboard of the shot: six separate full-frame keyframes stacked in one vertical column on a white page, separated by white margins, in time order from top to bottom. Each keyframe is one complete frame of the video, at exactly the framing and scale the video must have. The white margins and the column layout are only the page; they are not part of the room. The six photographs were taken from the same spot at the centre of the room with the same lens, turning the camera 60 degrees to the right between each one, so each photograph overlaps its neighbours: the right part of one shows the same objects as the left part of the next, and View 6 overlaps View 1, closing the full circle. Reading order: View 1 is the top keyframe, then View 2, View 3, View 4, View 5, and View 6 is the bottom keyframe. The room has a polished black marble floor with white veins that reflects the lights, dark wood panelling, black marble feature walls with warm LED backlighting, a dark ceiling with small recessed spotlights, and tall floor-to-ceiling windows onto the sea under a blue dusk sky.\nView 1 (first keyframe, top) faces the main lounge: two dark brown sectional sofas around a low coffee table on a rug, tall windows with the sea on the left, and on the right a black marble wall with a wall-mounted TV and warm backlighting.\nView 2 (second keyframe), to the right of View 1: the black marble TV wall on the left, then a corridor with a small table, two chairs and a dark framed picture at its end, and a long dark wood panelled wall on the right.\nView 3 (third keyframe), to the right of View 2: the dark wood panelled wall with a flush door, a wall sconce, and on the right edge a second lounge with dark sofas, curtains and a tall window onto trees.\nView 4 (fourth keyframe), to the right of View 3: the second lounge with its dark sofas, coffee table and beige rug, a wall sconce and curtains, and large glass doors onto a terrace with a sun lounger and the sea.\nView 5 (fifth keyframe), to the right of View 4: the glass doors onto the terrace with the sun lounger on the left, a wooden pillar, then a second black marble wall with a large wall-mounted TV, warm backlighting and a low black marble bench.\nView 6 (sixth keyframe, bottom), to the right of View 5: the black marble wall with the TV on the left, a wooden pillar, a tall vase, then the tall windows onto the sea and the dark sofas of the main lounge, which are the left side of View 1.\n\nsummary:\n[reference generation] A 5-second single continuous full-frame shot filmed from the centre of <Subject 1>, in which the camera pans to the right through one full turn, passing in order through View 1, View 2, View 3, View 4, View 5, View 6 of <Picture 1> and back to View 1.\n\nretention_analysis:\n<Subject 1> (appears in [Shot 1]): partially_preserved - every object, its shape, position, color, material and lighting are kept exactly as in the six photographs of <Picture 1>, with the same perspective and the same field of view, joined into one continuous room where each object exists only once; the storyboard layout of <Picture 1>, its column of six keyframes and its white margins are not kept at all.\n\ndetailed_description:\nThe target video is photorealistic live-action interior footage that fills the whole frame with a single view of the room, shot with the same lens, the same field of view and from the same camera position as the six photographs, with moody low-key lighting: warm LED accents, small ceiling spotlights reflected in the marble floor, and cool blue dusk light from the windows.\n[Shot 1] One continuous shot with no cuts. The camera stands at eye level in the centre of the room and pans to the right on the spot at one constant speed, turning exactly 360 degrees in 5 seconds, without changing its field of view. At 00:00.000 the whole frame matches View 1: the main lounge with its sofas and coffee table, the sea windows on the left and the black marble TV wall on the right. At 00:00.800 the whole frame matches View 2: the marble TV wall on the left, the corridor with the small table and two chairs, the wood panelled wall on the right. At 00:01.700 the whole frame matches View 3: the wood panelled wall with its door and the edge of the second lounge. At 00:02.500 the whole frame matches View 4: the second lounge and the glass doors onto the terrace with the sun lounger and the sea. At 00:03.300 the whole frame matches View 5: the terrace doors on the left, the wooden pillar and the second black marble wall with its TV and bench. At 00:04.200 the whole frame matches View 6: the marble TV wall, the pillar, the vase and the sea windows with the sofas of the main lounge. At 00:05.000 the whole frame matches View 1 again. Between these moments the view slides smoothly from one photograph to the next through their shared overlapping part, like a real camera turning.\nThe camera does not zoom, does not pull back, does not move or tilt. The room is empty and still. Objects seen in two neighbouring views are the same single object. At every moment the frame shows exactly as much of the room as one keyframe does, never more: never two keyframes side by side, never a wider view. The video never shows the storyboard itself: no column, no panels, no white borders or margins, no split screen. No cuts, no cross-fades, no repeated furniture, no text or watermarks.\n\noverall_soundscape:\nA quiet indoor room tone with the faint, distant sound of waves from outside the windows.\n\nnon_diegetic_music:\nNone."
+   ],
+   "title": "EDIT ME - Prompt (see skills/h3-location-prompting)"
+  },
+  {
+   "id": 115,
+   "type": "ResolutionSelector",
+   "pos": [
+    20,
+    1500
+   ],
+   "size": [
+    270,
+    170
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "aspect_ratio",
+     "type": "COMBO",
+     "widget": {
+      "name": "aspect_ratio"
+     },
+     "link": null
+    },
+    {
+     "name": "megapixels",
+     "type": "FLOAT",
+     "widget": {
+      "name": "megapixels"
+     },
+     "link": null
+    },
+    {
+     "name": "multiple",
+     "type": "INT",
+     "widget": {
+      "name": "multiple"
+     },
+     "link": null
+    },
+    {
+     "name": "preview",
+     "shape": 7,
+     "type": "RESOLUTION_PREVIEW",
+     "widget": {
+      "name": "preview"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "width",
+     "type": "INT",
+     "links": [
+      8
+     ]
+    },
+    {
+     "name": "height",
+     "type": "INT",
+     "links": [
+      9
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ResolutionSelector"
+   },
+   "widgets_values": [
+    "16:9 (Widescreen)",
+    0.2,
+    32
+   ],
+   "title": "Size (0.2 to test, then 0.4+)"
+  },
+  {
+   "id": 132,
+   "type": "PrimitiveFloat",
+   "pos": [
+    320,
+    1500
+   ],
+   "size": [
+    270,
+    70
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "value",
+     "type": "FLOAT",
+     "widget": {
+      "name": "value"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "FLOAT",
+     "type": "FLOAT",
+     "links": [
+      10
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "PrimitiveFloat"
+   },
+   "widgets_values": [
+    5
+   ],
+   "title": "Duration in seconds"
+  },
+  {
+   "id": 131,
+   "type": "ComfyMathExpression",
+   "pos": [
+    620,
+    1500
+   ],
+   "size": [
+    225,
+    74
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "values.a",
+     "type": "FLOAT,INT,BOOLEAN",
+     "link": 10
+    },
+    {
+     "name": "values.b",
+     "shape": 7,
+     "type": "FLOAT,INT,BOOLEAN",
+     "link": null
+    },
+    {
+     "name": "expression",
+     "type": "STRING",
+     "widget": {
+      "name": "expression"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "FLOAT",
+     "type": "FLOAT",
+     "links": []
+    },
+    {
+     "name": "INT",
+     "type": "INT",
+     "links": [
+      11
+     ]
+    },
+    {
+     "name": "BOOL",
+     "type": "BOOLEAN",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ComfyMathExpression"
+   },
+   "widgets_values": [
+    "max(5, round(a * 24)) + (5 - (max(5, round(a * 24)) % 17)) % 17"
+   ]
+  },
+  {
+   "id": 127,
+   "type": "UNETLoader",
+   "pos": [
+    1180,
+    80
+   ],
+   "size": [
+    640,
+    90
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "unet_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "unet_name"
+     },
+     "link": null
+    },
+    {
+     "name": "weight_dtype",
+     "type": "COMBO",
+     "widget": {
+      "name": "weight_dtype"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      12
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "UNETLoader"
+   },
+   "widgets_values": [
+    "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+    "default"
+   ]
+  },
+  {
+   "id": 166,
+   "type": "MiniMaxH3MemoryEfficientSageAttentionPatch",
+   "pos": [
+    1180,
+    210
+   ],
+   "size": [
+    357.1148376464844,
+    37.99467849731445
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 12
+    }
+   ],
+   "outputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "links": [
+      14,
+      17
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "MiniMaxH3MemoryEfficientSageAttentionPatch"
+   }
+  },
+  {
+   "id": 128,
+   "type": "CLIPLoader",
+   "pos": [
+    1180,
+    320
+   ],
+   "size": [
+    640,
+    120
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "clip_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "clip_name"
+     },
+     "link": null
+    },
+    {
+     "name": "type",
+     "type": "COMBO",
+     "widget": {
+      "name": "type"
+     },
+     "link": null
+    },
+    {
+     "name": "device",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "device"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "CLIP",
+     "type": "CLIP",
+     "links": [
+      4
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CLIPLoader"
+   },
+   "widgets_values": [
+    "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+    "minimax",
+    "default"
+   ]
+  },
+  {
+   "id": 119,
+   "type": "VAELoader",
+   "pos": [
+    1180,
+    520
+   ],
+   "size": [
+    640,
+    70
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "vae_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "vae_name"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      5,
+      24
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAELoader"
+   },
+   "widgets_values": [
+    "minimax_h3_video_vae_fp16.safetensors"
+   ]
+  },
+  {
+   "id": 120,
+   "type": "VAELoader",
+   "pos": [
+    1180,
+    650
+   ],
+   "size": [
+    650,
+    70
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "vae_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "vae_name"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      6,
+      26
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAELoader"
+   },
+   "widgets_values": [
+    "minimax_h3_audio_vae_fp32.safetensors"
+   ]
+  },
+  {
+   "id": 136,
+   "type": "MiniMaxH3ReferenceToVideo",
+   "pos": [
+    1700,
+    80
+   ],
+   "size": [
+    410,
+    584
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "clip",
+     "type": "CLIP",
+     "link": 4
+    },
+    {
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 5
+    },
+    {
+     "name": "audio_vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 6
+    },
+    {
+     "name": "ref_images.ref_image_0",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 3
+    },
+    {
+     "name": "ref_images.ref_image_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "name": "ref_images.ref_image_2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "name": "ref_images.ref_image_3",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "name": "ref_images.ref_image_4",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "name": "ref_videos.ref_video_0",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "name": "ref_videos.ref_video_1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "name": "ref_videos.ref_video_2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "name": "ref_video_audios.ref_video_audio_0",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "name": "ref_video_audios.ref_video_audio_1",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "name": "ref_video_audios.ref_video_audio_2",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "name": "ref_audios.ref_audio_0",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "name": "ref_audios.ref_audio_1",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "name": "ref_audios.ref_audio_2",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": null
+    },
+    {
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 7
+    },
+    {
+     "name": "width",
+     "type": "INT",
+     "widget": {
+      "name": "width"
+     },
+     "link": 8
+    },
+    {
+     "name": "height",
+     "type": "INT",
+     "widget": {
+      "name": "height"
+     },
+     "link": 9
+    },
+    {
+     "name": "length",
+     "type": "INT",
+     "widget": {
+      "name": "length"
+     },
+     "link": 11
+    },
+    {
+     "name": "ref_image_size",
+     "type": "COMBO",
+     "widget": {
+      "name": "ref_image_size"
+     },
+     "link": null
+    },
+    {
+     "name": "ref_images.ref_image_5",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "name": "ref_images.ref_image_6",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "name": "ref_images.ref_image_7",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "positive",
+     "type": "CONDITIONING",
+     "links": [
+      13,
+      15
+     ]
+    },
+    {
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      22
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "MiniMaxH3ReferenceToVideo"
+   },
+   "widgets_values": [
+    "",
+    1344,
+    768,
+    124,
+    "max"
+   ]
+  },
+  {
+   "id": 167,
+   "type": "ConditioningZeroOut",
+   "pos": [
+    1700,
+    720
+   ],
+   "size": [
+    234.01171875,
+    26
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 13
+    }
+   ],
+   "outputs": [
+    {
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      16
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ConditioningZeroOut"
+   }
+  },
+  {
+   "id": 165,
+   "type": "CFGGuider",
+   "pos": [
+    2160,
+    80
+   ],
+   "size": [
+    270,
+    98
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 14
+    },
+    {
+     "name": "positive",
+     "type": "CONDITIONING",
+     "link": 15
+    },
+    {
+     "name": "negative",
+     "type": "CONDITIONING",
+     "link": 16
+    },
+    {
+     "name": "cfg",
+     "type": "FLOAT",
+     "widget": {
+      "name": "cfg"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "GUIDER",
+     "type": "GUIDER",
+     "links": [
+      19
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CFGGuider"
+   },
+   "widgets_values": [
+    1
+   ]
+  },
+  {
+   "id": 129,
+   "type": "RandomNoise",
+   "pos": [
+    2160,
+    260
+   ],
+   "size": [
+    360,
+    90
+   ],
+   "flags": {},
+   "order": 15,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "noise_seed",
+     "type": "INT",
+     "widget": {
+      "name": "noise_seed"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "NOISE",
+     "type": "NOISE",
+     "links": [
+      18
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "RandomNoise"
+   },
+   "widgets_values": [
+    217513260675975,
+    "randomize"
+   ]
+  },
+  {
+   "id": 123,
+   "type": "KSamplerSelect",
+   "pos": [
+    2160,
+    420
+   ],
+   "size": [
+    370,
+    70
+   ],
+   "flags": {},
+   "order": 16,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "sampler_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "sampler_name"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "SAMPLER",
+     "type": "SAMPLER",
+     "links": [
+      20
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "KSamplerSelect"
+   },
+   "widgets_values": [
+    "res_multistep"
+   ]
+  },
+  {
+   "id": 124,
+   "type": "BasicScheduler",
+   "pos": [
+    2160,
+    540
+   ],
+   "size": [
+    370,
+    130
+   ],
+   "flags": {},
+   "order": 17,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "model",
+     "type": "MODEL",
+     "link": 17
+    },
+    {
+     "name": "scheduler",
+     "type": "COMBO",
+     "widget": {
+      "name": "scheduler"
+     },
+     "link": null
+    },
+    {
+     "name": "steps",
+     "type": "INT",
+     "widget": {
+      "name": "steps"
+     },
+     "link": null
+    },
+    {
+     "name": "denoise",
+     "type": "FLOAT",
+     "widget": {
+      "name": "denoise"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "SIGMAS",
+     "type": "SIGMAS",
+     "links": [
+      21
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "BasicScheduler"
+   },
+   "widgets_values": [
+    "simple",
+    20,
+    1
+   ]
+  },
+  {
+   "id": 125,
+   "type": "SamplerCustomAdvanced",
+   "pos": [
+    2160,
+    720
+   ],
+   "size": [
+    275.49375,
+    326
+   ],
+   "flags": {},
+   "order": 18,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "noise",
+     "type": "NOISE",
+     "link": 18
+    },
+    {
+     "name": "guider",
+     "type": "GUIDER",
+     "link": 19
+    },
+    {
+     "name": "sampler",
+     "type": "SAMPLER",
+     "link": 20
+    },
+    {
+     "name": "sigmas",
+     "type": "SIGMAS",
+     "link": 21
+    },
+    {
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 22
+    }
+   ],
+   "outputs": [
+    {
+     "name": "output",
+     "type": "LATENT",
+     "links": [
+      23,
+      25
+     ]
+    },
+    {
+     "name": "denoised_output",
+     "type": "LATENT",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "SamplerCustomAdvanced"
+   }
+  },
+  {
+   "id": 122,
+   "type": "VAEDecode",
+   "pos": [
+    2580,
+    80
+   ],
+   "size": [
+    230,
+    60
+   ],
+   "flags": {},
+   "order": 19,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "samples",
+     "type": "LATENT",
+     "link": 23
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": 24
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      27
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAEDecode"
+   }
+  },
+  {
+   "id": 121,
+   "type": "VAEDecodeAudio",
+   "pos": [
+    2580,
+    200
+   ],
+   "size": [
+    230,
+    60
+   ],
+   "flags": {},
+   "order": 20,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "samples",
+     "type": "LATENT",
+     "link": 25
+    },
+    {
+     "name": "vae",
+     "type": "VAE",
+     "link": 26
+    }
+   ],
+   "outputs": [
+    {
+     "name": "AUDIO",
+     "type": "AUDIO",
+     "links": [
+      28
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VAEDecodeAudio"
+   }
+  },
+  {
+   "id": 130,
+   "type": "CreateVideo",
+   "pos": [
+    2580,
+    320
+   ],
+   "size": [
+    334.1166687011719,
+    174
+   ],
+   "flags": {},
+   "order": 21,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 27
+    },
+    {
+     "name": "audio",
+     "shape": 7,
+     "type": "AUDIO",
+     "link": 28
+    },
+    {
+     "name": "fps",
+     "type": "FLOAT",
+     "widget": {
+      "name": "fps"
+     },
+     "link": null
+    },
+    {
+     "name": "bit_depth",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "bit_depth"
+     },
+     "link": null
+    },
+    {
+     "name": "color_space",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "color_space"
+     },
+     "link": null
+    },
+    {
+     "name": "chroma_subsampling",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "chroma_subsampling"
+     },
+     "link": null
+    },
+    {
+     "name": "codec",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "codec"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "VIDEO",
+     "type": "VIDEO",
+     "links": [
+      29
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CreateVideo"
+   },
+   "widgets_values": [
+    24,
+    "auto",
+    "sRGB",
+    "auto",
+    "none"
+   ]
+  },
+  {
+   "id": 92,
+   "type": "SaveVideo",
+   "pos": [
+    2580,
+    560
+   ],
+   "size": [
+    1049.2986111506636,
+    700.9436728614797
+   ],
+   "flags": {},
+   "order": 22,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "video",
+     "type": "VIDEO",
+     "link": 29
+    },
+    {
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    },
+    {
+     "name": "format",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format"
+     },
+     "link": null
+    },
+    {
+     "name": "format.codec",
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "format.codec"
+     },
+     "link": null
+    },
+    {
+     "name": "codec",
+     "shape": 7,
+     "type": "COMFY_DYNAMICCOMBO_V3",
+     "widget": {
+      "name": "codec"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "video",
+     "type": "VIDEO",
+     "links": []
+    },
+    {
+     "name": "video",
+     "type": "VIDEO",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "SaveVideo"
+   },
+   "widgets_values": [
+    "video/H3_location",
+    "auto",
+    "auto",
+    "auto"
+   ]
+  },
+  {
+   "id": 390,
+   "type": "MarkdownNote",
+   "pos": [
+    -580,
+    0
+   ],
+   "size": [
+    560,
+    700
+   ],
+   "flags": {},
+   "order": 23,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "MarkdownNote"
+   },
+   "widgets_values": [
+    "# MiniMax H3 video in a 360 panorama room\n\nThe panorama is turned into a sheet of camera views, and the sheet is the only reference image\n(`<Picture 1>`) of MiniMax H3 reference-to-video.\n\n## Models (in `ComfyUI/models/`)\n| File | Folder |\n|---|---|\n| minimax_h3_ref2va_pruned_int8_convrot.safetensors | diffusion_models |\n| qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors | text_encoders |\n| minimax_h3_video_vae_fp16.safetensors | vae |\n| minimax_h3_audio_vae_fp32.safetensors | vae |\n\nAll from [Comfy-Org/MiniMax-H3](https://huggingface.co/Comfy-Org/MiniMax-H3).\n\nCustom nodes: this pack, and ComfyUI-KJNodes for the memory-efficient attention patch (without it the\nrender is many times slower on a low-VRAM setup).\n\n## Use\n1. Load the panorama.\n2. Rewrite the prompt for your room and shot: see `skills/h3-location-prompting/SKILL.md`. The prompt in\n   the workflow is an example for a dark seaside living room.\n3. Test at 0.2 megapixels and 5 s, then raise megapixels and duration.\n\nKeep `ref_image_size` on `max` (with `match` the sheet is shrunk to the video size and the views lose\ntheir detail) and CFG at 1. The shot should start from where the panorama was taken.\n"
+   ],
+   "title": "What to download / how to use"
+  }
+ ],
+ "links": [
+  [
+   1,
+   300,
+   0,
+   301,
+   0,
+   "IMAGE"
+  ],
+  [
+   2,
+   301,
+   1,
+   302,
+   0,
+   "IMAGE"
+  ],
+  [
+   3,
+   301,
+   1,
+   136,
+   3,
+   "IMAGE"
+  ],
+  [
+   4,
+   128,
+   0,
+   136,
+   0,
+   "CLIP"
+  ],
+  [
+   5,
+   119,
+   0,
+   136,
+   1,
+   "VAE"
+  ],
+  [
+   6,
+   120,
+   0,
+   136,
+   2,
+   "VAE"
+  ],
+  [
+   7,
+   138,
+   0,
+   136,
+   17,
+   "STRING"
+  ],
+  [
+   8,
+   115,
+   0,
+   136,
+   18,
+   "INT"
+  ],
+  [
+   9,
+   115,
+   1,
+   136,
+   19,
+   "INT"
+  ],
+  [
+   10,
+   132,
+   0,
+   131,
+   0,
+   "FLOAT"
+  ],
+  [
+   11,
+   131,
+   1,
+   136,
+   20,
+   "INT"
+  ],
+  [
+   12,
+   127,
+   0,
+   166,
+   0,
+   "MODEL"
+  ],
+  [
+   13,
+   136,
+   0,
+   167,
+   0,
+   "CONDITIONING"
+  ],
+  [
+   14,
+   166,
+   0,
+   165,
+   0,
+   "MODEL"
+  ],
+  [
+   15,
+   136,
+   0,
+   165,
+   1,
+   "CONDITIONING"
+  ],
+  [
+   16,
+   167,
+   0,
+   165,
+   2,
+   "CONDITIONING"
+  ],
+  [
+   17,
+   166,
+   0,
+   124,
+   0,
+   "MODEL"
+  ],
+  [
+   18,
+   129,
+   0,
+   125,
+   0,
+   "NOISE"
+  ],
+  [
+   19,
+   165,
+   0,
+   125,
+   1,
+   "GUIDER"
+  ],
+  [
+   20,
+   123,
+   0,
+   125,
+   2,
+   "SAMPLER"
+  ],
+  [
+   21,
+   124,
+   0,
+   125,
+   3,
+   "SIGMAS"
+  ],
+  [
+   22,
+   136,
+   1,
+   125,
+   4,
+   "LATENT"
+  ],
+  [
+   23,
+   125,
+   0,
+   122,
+   0,
+   "LATENT"
+  ],
+  [
+   24,
+   119,
+   0,
+   122,
+   1,
+   "VAE"
+  ],
+  [
+   25,
+   125,
+   0,
+   121,
+   0,
+   "LATENT"
+  ],
+  [
+   26,
+   120,
+   0,
+   121,
+   1,
+   "VAE"
+  ],
+  [
+   27,
+   122,
+   0,
+   130,
+   0,
+   "IMAGE"
+  ],
+  [
+   28,
+   121,
+   0,
+   130,
+   1,
+   "AUDIO"
+  ],
+  [
+   29,
+   130,
+   0,
+   92,
+   0,
+   "VIDEO"
+  ]
+ ],
+ "groups": [
+  {
+   "title": "0 · Panorama -> sheet of camera views",
+   "bounding": [
+    0,
+    0,
+    1120,
+    760
+   ],
+   "color": "#8A8",
+   "font_size": 24,
+   "flags": {}
+  },
+  {
+   "title": "1 · Text and size to edit for each shot",
+   "bounding": [
+    0,
+    800,
+    1140,
+    900
+   ],
+   "color": "#a1309b",
+   "font_size": 24,
+   "flags": {}
+  },
+  {
+   "title": "2 · Models",
+   "bounding": [
+    1160,
+    0,
+    500,
+    760
+   ],
+   "color": "#3f789e",
+   "font_size": 24,
+   "flags": {}
+  },
+  {
+   "title": "3 · MiniMax H3 reference to video",
+   "bounding": [
+    1680,
+    0,
+    1340,
+    1000
+   ],
+   "color": "#b58b2a",
+   "font_size": 24,
+   "flags": {}
+  }
+ ],
+ "config": {},
+ "extra": {},
+ "version": 0.4
+}

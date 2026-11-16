@@ -1,0 +1,257 @@
+{
+ "last_node_id": 390,
+ "last_link_id": 4,
+ "nodes": [
+  {
+   "id": 300,
+   "type": "LoadImage",
+   "pos": [
+    20,
+    80
+   ],
+   "size": [
+    340,
+    380
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      1
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "example.png",
+    "image"
+   ],
+   "title": "Input 360 panorama (2:1 equirectangular)"
+  },
+  {
+   "id": 301,
+   "type": "ERPToViews",
+   "pos": [
+    400,
+    80
+   ],
+   "size": [
+    340,
+    220
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "image",
+     "type": "IMAGE",
+     "link": 1
+    }
+   ],
+   "outputs": [
+    {
+     "name": "views",
+     "type": "IMAGE",
+     "links": [
+      2,
+      3
+     ]
+    },
+    {
+     "name": "sheet",
+     "type": "IMAGE",
+     "links": [
+      4
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "ERPToViews"
+   },
+   "widgets_values": [
+    6,
+    1024,
+    576,
+    90.0,
+    0.0,
+    24
+   ],
+   "title": "Views (6 x 90 deg = 30 deg overlap on each side)"
+  },
+  {
+   "id": 302,
+   "type": "PreviewImage",
+   "pos": [
+    800,
+    80
+   ],
+   "size": [
+    420,
+    300
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 2
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "PreviewImage"
+   },
+   "title": "Views"
+  },
+  {
+   "id": 303,
+   "type": "SaveImage",
+   "pos": [
+    800,
+    430
+   ],
+   "size": [
+    420,
+    300
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 3
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "SaveImage"
+   },
+   "widgets_values": [
+    "pano_views/view"
+   ],
+   "title": "Save views"
+  },
+  {
+   "id": 304,
+   "type": "SaveImage",
+   "pos": [
+    1260,
+    80
+   ],
+   "size": [
+    340,
+    650
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 4
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "SaveImage"
+   },
+   "widgets_values": [
+    "pano_views/sheet"
+   ],
+   "title": "Save sheet"
+  },
+  {
+   "id": 390,
+   "type": "MarkdownNote",
+   "pos": [
+    -540,
+    0
+   ],
+   "size": [
+    520,
+    480
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "MarkdownNote"
+   },
+   "widgets_values": [
+    "# 360 panorama -> camera views + sheet\n\nTurns a 2:1 equirectangular panorama into normal camera views taken from its centre, turning right from\none view to the next.\n\n- **views**: a batch with one image per view.\n- **sheet**: the same views stacked in one column on a white page. This is the image to give a video\n  model as the location reference.\n\nSettings: `views` (how many around the full turn), `width` / `height` of each view, `h_fov_deg` (field\nof view; wider than 360 / views makes neighbours overlap), `first_yaw_deg` (direction of view 1,\n0 = centre of the panorama), `margin` (white gap on the sheet).\n\nThe detail of a view is the panorama width x h_fov / 360: upscale the panorama first if the views look\nsoft. If the panorama's left and right edges do not match, the view that looks backwards shows the break.\n"
+   ],
+   "title": "What this does"
+  }
+ ],
+ "links": [
+  [
+   1,
+   300,
+   0,
+   301,
+   0,
+   "IMAGE"
+  ],
+  [
+   2,
+   301,
+   0,
+   302,
+   0,
+   "IMAGE"
+  ],
+  [
+   3,
+   301,
+   0,
+   303,
+   0,
+   "IMAGE"
+  ],
+  [
+   4,
+   301,
+   1,
+   304,
+   0,
+   "IMAGE"
+  ]
+ ],
+ "groups": [
+  {
+   "title": "360 panorama -> camera views + sheet",
+   "bounding": [
+    0,
+    0,
+    1620,
+    760
+   ],
+   "color": "#8A8",
+   "font_size": 24,
+   "flags": {}
+  }
+ ],
+ "config": {},
+ "extra": {},
+ "version": 0.4
+}
