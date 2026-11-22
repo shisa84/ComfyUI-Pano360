@@ -1,6 +1,6 @@
 ---
 name: pano360-prompting
-description: Write the text fields of the ComfyUI-PerspToERP 360 panorama workflows (Krea 2, FLUX.2 Klein 9B, Qwen-Image 2.1) from a single interior photo. Use when asked to prompt, fill in or fix the "EDIT ME" fields of photo_to_pano360_krea2, photo_to_pano360_klein or photo_to_pano360_qwen21, or when a generated panorama shows duplicated furniture, odd objects or a bad area behind the camera.
+description: Write the text fields of the ComfyUI-Pano360 360 panorama workflows (Krea 2, FLUX.2 Klein 9B, Qwen-Image 2.1) from a single interior photo. Use when asked to prompt, fill in or fix the "EDIT ME" fields of photo_to_pano360_krea2, photo_to_pano360_klein or photo_to_pano360_qwen21, or when a generated panorama shows duplicated furniture, odd objects or a bad area behind the camera.
 ---
 
 # Prompting the 360 panorama workflows
