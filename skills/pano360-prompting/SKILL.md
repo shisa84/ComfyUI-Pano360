@@ -14,8 +14,11 @@ light, and the large unique objects (bed, dining table, TV, sofa group, fireplac
 | Workflow | Model + LoRA | Fields to write |
 |---|---|---|
 | `equirectangular_krea2` | Krea 2 Turbo + `krea2_oedit_360_erp_outpaint_lora_v1` | Scene, Style only, Back |
-| `equirectangular_klein_rapide` | FLUX.2 Klein 9B + `flux-2-klein-9B-360-erp-outpaint-lora_V1` | Scene |
-| `equirectangular_qwen21` | Qwen-Image 2.1 + `pano360_qwen21_edit_v1` | Scene |
+| `equirectangular_klein_rapide` | FLUX.2 Klein 9B + `flux-2-klein-9B-360-erp-outpaint-lora_V1` | Scene, Style only, Back |
+| `equirectangular_qwen21` (experimental) | Qwen-Image 2.1 + `pano360_qwen21_edit_v1` | Scene, Style only, Back |
+
+All three run a second pass: the panorama is turned by 180 degrees, the middle third (what is behind the
+camera, around the left/right seam) is regenerated from Style only + Back, then turned back.
 
 ## Krea 2 (two passes)
 
@@ -51,18 +54,23 @@ Known limits, not fixed by prompting so far:
   decorations out of every field.
 - Saying "no table" did not prevent a table. Describe what should be there instead.
 
-## FLUX.2 Klein 9B (one pass)
+## FLUX.2 Klein 9B (two passes)
 
-One field, **Scene**, written exactly like the Krea 2 Scene (same four sentences). The negative prompt
-is fixed in the workflow.
+The three fields are written exactly like the Krea 2 ones (Scene = same four sentences; Style only;
+Back starting with `The green area is ...`). The negative prompt is fixed in the workflow.
 
 Klein did not duplicate furniture in testing, but it leaves the invented walls bare and redraws the
 photo instead of keeping it pixel for pixel. If the room should not look empty, name one or two large
-elements in sentence 4 (`Behind the camera: a white dining area with a round glass table and four chairs.`).
+elements in Back, but only elements the photo does not already show: a dining area in Back next to the
+dining table of the photo gave a second dining area.
 
-## Qwen-Image 2.1 (one pass, photo given directly)
+## Qwen-Image 2.1 (two passes, photo given directly) - experimental
 
-One field, **Scene**. The workflow prepends
+Results are often incoherent: pass 1 invents volumes that make no sense around the photo (glass
+cylinders, stone pillars, doors stuck to columns), and no prompt fixed it. Pass 2 only repairs the seam
+and the area behind the camera. When the user wants a usable panorama, recommend Klein or Krea 2.
+
+**Scene** (pass 1). The workflow prepends
 `Transform this set of images into an equirectangular 360 panorama. Scene:`.
 
 Write a single sentence of about 15 to 35 words: the place and its main features first, then the
@@ -71,9 +79,16 @@ Do not use `<image1>` references or edit instructions ("keep", "fill", "extend")
 
 Example: `A dark luxury dining room with black marble floor, rough slate stone walls, bronze panels and a walnut ceiling, a single dining table and a bronze door behind the viewer, lit by warm amber lights.`
 
-This is the weakest of the three: invented areas come out dark, soft or with odd panels. Removing the
-door, asking for even lighting, and rendering at 2048x1024 were tried and did not fix it, so do not
-spend prompt iterations on those; switch to Krea 2 or Klein instead.
+**Style only** and **Back** (pass 2): written like the Krea 2 ones. Back starts with `The green area is ...`:
+pass 2 uses Qwen-Image 2.1 without the 360 LoRA as an editor that fills the green band, and the workflow
+wraps the two fields in "Fill the green area ..." and "Match the lighting ...".
+
+Pass 2 tends to repeat a striking material of pass 1 (a rough stone wall came back as a stone pillar in
+the band). If that happens, name a plain material in Back or change the pass 2 seed.
+
+This is the weakest of the three for pass 1: invented areas come out dark, soft or with odd panels.
+Removing the door, asking for even lighting, and rendering at 2048x1024 were tried and did not fix it, so
+do not spend prompt iterations on those; switch to Krea 2 or Klein instead.
 
 ## Field of view (`h_fov_deg`, Krea 2 and Klein)
 
@@ -88,4 +103,5 @@ photo. A larger value makes the photo cover more of the panorama.
 | Two doors behind the camera (Krea 2) | Drop the door from Back, or from sentence 4 of Scene |
 | Duplicate next to the photo | Add the object to the "Only one ..." sentence; if it stays, try another seed or Klein |
 | Unwanted object (tree, statue, rug) | Find the word that names or suggests it and delete it |
-| Walls too bare (Klein) | Name one or two large elements behind the camera |
+| Walls too bare (Klein) | Name one or two large elements in Back |
+| Left/right seam still visible | Check that the pass 2 group is not bypassed; try another pass 2 seed |
