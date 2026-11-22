@@ -1,6 +1,6 @@
 ---
 name: pano360-prompting
-description: Write the text fields of the ComfyUI-PerspToERP 360 panorama workflows (Krea 2, FLUX.2 Klein 9B, Qwen-Image 2.1) from a single interior photo. Use when asked to prompt, fill in or fix the "EDIT ME" fields of equirectangular_krea2, equirectangular_klein_rapide or equirectangular_qwen21, or when a generated panorama shows duplicated furniture, odd objects or a bad area behind the camera.
+description: Write the text fields of the ComfyUI-PerspToERP 360 panorama workflows (Krea 2, FLUX.2 Klein 9B, Qwen-Image 2.1) from a single interior photo. Use when asked to prompt, fill in or fix the "EDIT ME" fields of photo_to_pano360_krea2, photo_to_pano360_klein or photo_to_pano360_qwen21, or when a generated panorama shows duplicated furniture, odd objects or a bad area behind the camera.
 ---
 
 # Prompting the 360 panorama workflows
@@ -13,9 +13,9 @@ light, and the large unique objects (bed, dining table, TV, sofa group, fireplac
 
 | Workflow | Model + LoRA | Fields to write |
 |---|---|---|
-| `equirectangular_krea2` | Krea 2 Turbo + `krea2_oedit_360_erp_outpaint_lora_v1` | Scene, Style only, Back |
-| `equirectangular_klein_rapide` | FLUX.2 Klein 9B + `flux-2-klein-9B-360-erp-outpaint-lora_V1` | Scene, Style only, Back |
-| `equirectangular_qwen21` (experimental) | Qwen-Image 2.1 + `pano360_qwen21_edit_v1` | Scene, Style only, Back |
+| `photo_to_pano360_krea2` | Krea 2 Turbo + `krea2_oedit_360_erp_outpaint_lora_v1` | Scene, Style only, Back |
+| `photo_to_pano360_klein` | FLUX.2 Klein 9B + `flux-2-klein-9B-360-erp-outpaint-lora_V1` | Scene, Style only, Back |
+| `experimental/photo_to_pano360_qwen21` | Qwen-Image 2.1 + `pano360_qwen21_edit_v1` | Scene, Style only, Back |
 
 All three run a second pass: the panorama is turned by 180 degrees, the middle third (what is behind the
 camera, around the left/right seam) is regenerated from Style only + Back, then turned back.
@@ -63,6 +63,14 @@ Klein did not duplicate furniture in testing, but it leaves the invented walls b
 photo instead of keeping it pixel for pixel. If the room should not look empty, name one or two large
 elements in Back, but only elements the photo does not already show: a dining area in Back next to the
 dining table of the photo gave a second dining area.
+
+Put the door only in Back. With Klein, sentence 4 of Scene must stay `Behind the camera: a plain <material> wall.`:
+a door there is drawn in pass 1 next to the photo, and pass 2 then adds the Back door, giving two or three
+doors. Also leave out of Scene and Style any material that only covers one wall of the photo (a wood panel
+wall behind a bed): Klein spreads it as a strip inside the other walls. Name only the material that should
+continue all around, and write `the <material> walls simply continue unbroken, plain and empty`.
+Tested on a dark bedroom (stone walls, walnut wall behind the bed): door in Scene + walnut in Style gave two
+doors and a walnut strip in the stone; door only in Back and no walnut gave one door behind the camera.
 
 ## Qwen-Image 2.1 (two passes, photo given directly) - experimental
 

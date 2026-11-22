@@ -1,6 +1,6 @@
 {
   "last_node_id": 200,
-  "last_link_id": 40,
+  "last_link_id": 46,
   "nodes": [
     {
       "id": 1,
@@ -31,11 +31,10 @@
           "name": "VAE",
           "type": "VAE",
           "links": [
-            7,
-            13,
-            26,
-            31,
-            38
+            12,
+            22,
+            34,
+            44
           ]
         }
       ],
@@ -43,7 +42,7 @@
         "Node name for S&R": "VAELoader"
       },
       "widgets_values": [
-        "qwen_image_2.1_vae_bf16.safetensors"
+        "flux2-vae.safetensors"
       ]
     },
     {
@@ -83,8 +82,7 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            1,
-            20
+            1
           ]
         }
       ],
@@ -92,7 +90,7 @@
         "Node name for S&R": "UNETLoader"
       },
       "widgets_values": [
-        "qwen_image_2.1_int8_convrot.safetensors",
+        "flux-2-klein-9b-fp8.safetensors",
         "default"
       ]
     },
@@ -141,8 +139,10 @@
           "name": "CLIP",
           "type": "CLIP",
           "links": [
-            4,
-            29
+            9,
+            10,
+            31,
+            32
           ]
         }
       ],
@@ -150,8 +150,8 @@
         "Node name for S&R": "CLIPLoader"
       },
       "widgets_values": [
-        "qwen3vl_8b_int8_convrot.safetensors",
-        "qwen_image",
+        "qwen_3_8b_fp8mixed.safetensors",
+        "flux2",
         "default"
       ]
     },
@@ -197,7 +197,8 @@
           "name": "MODEL",
           "type": "MODEL",
           "links": [
-            2
+            17,
+            39
           ]
         }
       ],
@@ -205,64 +206,10 @@
         "Node name for S&R": "LoraLoaderModelOnly"
       },
       "widgets_values": [
-        "pano360_qwen21_edit_v1.safetensors",
-        1.0
+        "flux-2-klein-9B-360-erp-outpaint-lora_V1.safetensors",
+        1.5
       ],
-      "title": "360 LoRA (pano360, strength 1.0)"
-    },
-    {
-      "id": 33,
-      "type": "QwenImage21Cache",
-      "pos": [
-        1520,
-        460
-      ],
-      "size": [
-        320,
-        120
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 2
-        },
-        {
-          "name": "device",
-          "type": "COMBO",
-          "widget": {
-            "name": "device"
-          },
-          "link": null
-        },
-        {
-          "name": "dtype",
-          "type": "COMBO",
-          "widget": {
-            "name": "dtype"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            8
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "QwenImage21Cache"
-      },
-      "widgets_values": [
-        "auto",
-        "default"
-      ]
+      "title": "360 LoRA (1.5 = photo better respected, 0.9 = photo enlarged)"
     },
     {
       "id": 25,
@@ -293,7 +240,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            6
+            2
           ]
         },
         {
@@ -310,6 +257,226 @@
         "image"
       ],
       "title": "Input photo"
+    },
+    {
+      "id": 40,
+      "type": "PerspToERPCanvas",
+      "pos": [
+        2720,
+        80
+      ],
+      "size": [
+        320,
+        200
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 2
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": null
+        },
+        {
+          "name": "h_fov_deg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "h_fov_deg"
+          },
+          "link": null
+        },
+        {
+          "name": "pitch_deg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "pitch_deg"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "canvas",
+          "type": "IMAGE",
+          "links": [
+            3,
+            4,
+            11
+          ]
+        },
+        {
+          "name": "photo_mask",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PerspToERPCanvas"
+      },
+      "widgets_values": [
+        1440,
+        720,
+        90.0,
+        0.0
+      ],
+      "title": "Photo projection (field of view 90 = normal, 110 = wide angle)"
+    },
+    {
+      "id": 43,
+      "type": "PreviewImage",
+      "pos": [
+        3090,
+        80
+      ],
+      "size": [
+        380,
+        260
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": [],
+      "title": "Canvas preview"
+    },
+    {
+      "id": 36,
+      "type": "GetImageSize",
+      "pos": [
+        2720,
+        350
+      ],
+      "size": [
+        320,
+        112
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            5
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "batch_size",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GetImageSize"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 6,
+      "type": "EmptyFlux2LatentImage",
+      "pos": [
+        2720,
+        532
+      ],
+      "size": [
+        320,
+        148
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 5
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 6
+        },
+        {
+          "name": "batch_size",
+          "type": "INT",
+          "widget": {
+            "name": "batch_size"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            20,
+            42
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyFlux2LatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ]
     },
     {
       "id": 104,
@@ -340,7 +507,7 @@
           "name": "STRING",
           "type": "STRING",
           "links": [
-            3
+            7
           ]
         }
       ],
@@ -348,20 +515,20 @@
         "Node name for S&R": "PrimitiveStringMultiline"
       },
       "widgets_values": [
-        "A futuristic all-white living room with a curved white sofa, a wall-mounted TV, round windows over a city skyline and a glass dining table behind the viewer, lit by cool neutral daylight and white LED strips."
+        "A futuristic all-white interior, glossy white seamless floor, smooth white lacquered surfaces, cool neutral daylight. Only one TV and only one sofa in the whole room, the ones in the image. On both sides of the image the white walls simply continue, plain and empty. Behind the camera: a white dining area with a round glass table and four white chairs."
       ],
-      "title": "EDIT ME - Scene: one sentence (place, main features, then lighting)"
+      "title": "EDIT ME - Scene: style + unique objects + what is behind the camera"
     },
     {
       "id": 103,
       "type": "StringConcatenate",
       "pos": [
-        995,
+        1040,
         80
       ],
       "size": [
-        415,
-        166
+        360,
+        180
       ],
       "flags": {},
       "order": 0,
@@ -381,7 +548,7 @@
           "widget": {
             "name": "string_b"
           },
-          "link": 3
+          "link": 7
         },
         {
           "name": "delimiter",
@@ -397,7 +564,7 @@
           "name": "STRING",
           "type": "STRING",
           "links": [
-            5
+            8
           ]
         }
       ],
@@ -405,7 +572,7 @@
         "Node name for S&R": "StringConcatenate"
       },
       "widgets_values": [
-        "Transform this set of images into an equirectangular 360 panorama. Scene:",
+        "Fill the green spaces according to the image. Outpaint as a seamless 360 equirectangular panorama (2:1). Keep the horizon level. Match left and right edges.",
         "",
         " "
       ],
@@ -413,129 +580,120 @@
     },
     {
       "id": 10,
-      "type": "TextEncodeQwenImage21",
+      "type": "CLIPTextEncode",
       "pos": [
         20,
         940
       ],
       "size": [
-        320,
-        196
+        360,
+        160
       ],
       "flags": {},
       "order": 0,
       "mode": 0,
       "inputs": [
         {
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 8
+        },
+        {
           "name": "clip",
           "type": "CLIP",
-          "link": 4
-        },
-        {
-          "name": "prompt",
-          "type": "STRING",
-          "widget": {
-            "name": "prompt"
-          },
-          "link": 5
-        },
-        {
-          "name": "negative_prompt",
-          "type": "STRING",
-          "widget": {
-            "name": "negative_prompt"
-          },
-          "link": null
-        },
-        {
-          "name": "resolution",
-          "type": "INT",
-          "widget": {
-            "name": "resolution"
-          },
-          "link": null
-        },
-        {
-          "name": "images.image_1",
-          "type": "IMAGE",
-          "shape": 7,
-          "link": 6
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 7
+          "link": 9
         }
       ],
       "outputs": [
         {
-          "name": "positive",
+          "name": "CONDITIONING",
           "type": "CONDITIONING",
           "links": [
-            9
+            13
           ]
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "links": [
-            10
-          ]
-        },
-        {
-          "name": "latent",
-          "type": "LATENT",
-          "links": []
         }
       ],
       "properties": {
-        "Node name for S&R": "TextEncodeQwenImage21"
+        "Node name for S&R": "CLIPTextEncode"
       },
       "widgets_values": [
-        "",
-        "",
-        1088
+        ""
       ],
-      "title": "Pass 1 - text + photo"
+      "title": "Pass 1 +"
     },
     {
-      "id": 6,
-      "type": "EmptyLatentImage",
+      "id": 11,
+      "type": "CLIPTextEncode",
       "pos": [
         20,
-        1206
+        1170
       ],
       "size": [
-        320,
-        148
+        360,
+        160
       ],
       "flags": {},
       "order": 0,
       "mode": 0,
       "inputs": [
         {
-          "name": "width",
-          "type": "INT",
+          "name": "text",
+          "type": "STRING",
           "widget": {
-            "name": "width"
+            "name": "text"
           },
           "link": null
         },
         {
-          "name": "height",
-          "type": "INT",
-          "widget": {
-            "name": "height"
-          },
-          "link": null
+          "name": "clip",
+          "type": "CLIP",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            15
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "text, worst quality, blurry, ugly"
+      ],
+      "title": "Pass 1 -"
+    },
+    {
+      "id": 12,
+      "type": "VAEEncode",
+      "pos": [
+        20,
+        1400
+      ],
+      "size": [
+        320,
+        88
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 11
         },
         {
-          "name": "batch_size",
-          "type": "INT",
-          "widget": {
-            "name": "batch_size"
-          },
-          "link": null
+          "name": "vae",
+          "type": "VAE",
+          "link": 12
         }
       ],
       "outputs": [
@@ -543,25 +701,101 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            11
+            14,
+            16
           ]
         }
       ],
       "properties": {
-        "Node name for S&R": "EmptyLatentImage"
+        "Node name for S&R": "VAEEncode"
       },
-      "widgets_values": [
-        1536,
-        768,
-        1
+      "widgets_values": []
+    },
+    {
+      "id": 13,
+      "type": "ReferenceLatent",
+      "pos": [
+        430,
+        940
       ],
-      "title": "Panorama size (2:1)"
+      "size": [
+        320,
+        88
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 13
+        },
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "link": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            18
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReferenceLatent"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 14,
+      "type": "ReferenceLatent",
+      "pos": [
+        430,
+        1098
+      ],
+      "size": [
+        320,
+        88
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 15
+        },
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "link": 16
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            19
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReferenceLatent"
+      },
+      "widgets_values": []
     },
     {
       "id": 7,
       "type": "KSampler",
       "pos": [
-        390,
+        800,
         940
       ],
       "size": [
@@ -575,7 +809,7 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 8
+          "link": 17
         },
         {
           "name": "seed",
@@ -620,17 +854,17 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 9
+          "link": 18
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 10
+          "link": 19
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 11
+          "link": 20
         },
         {
           "name": "denoise",
@@ -646,7 +880,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            12
+            21
           ]
         }
       ],
@@ -656,7 +890,7 @@
       "widgets_values": [
         101,
         "randomize",
-        25,
+        4,
         1.0,
         "euler",
         "simple",
@@ -668,7 +902,7 @@
       "id": 8,
       "type": "VAEDecode",
       "pos": [
-        760,
+        1170,
         940
       ],
       "size": [
@@ -682,12 +916,12 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 12
+          "link": 21
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 13
+          "link": 22
         }
       ],
       "outputs": [
@@ -695,9 +929,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            19,
-            21,
-            22
+            27,
+            28
           ]
         }
       ],
@@ -710,7 +943,7 @@
       "id": 59,
       "type": "SaveImage",
       "pos": [
-        3100,
+        3640,
         940
       ],
       "size": [
@@ -724,7 +957,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 40
+          "link": 46
         },
         {
           "name": "filename_prefix",
@@ -746,7 +979,7 @@
         "Node name for S&R": "SaveImage"
       },
       "widgets_values": [
-        "krea2_360/pano_qwen21"
+        "krea2_360/pano_klein"
       ]
     },
     {
@@ -768,7 +1001,7 @@
       "title": "What to download / where to put it",
       "properties": {},
       "widgets_values": [
-        "# 360 panorama from one photo - Qwen-Image 2.1 (2 passes, no green canvas) - EXPERIMENTAL\n\n> **Experimental, often incoherent.** Pass 1 (Qwen + pano360 LoRA) regularly invents volumes that make no sense around the photo (glass cylinders, stone pillars, doors stuck to columns). Pass 2 only fixes the left/right seam and the area behind the camera, not that. For a usable panorama, use **equirectangular_klein_rapide** (fast) or **equirectangular_krea2** (keeps the photo pixels).\n\n## Models (in `ComfyUI/models/`)\n| File | Folder |\n|---|---|\n| [qwen_image_2.1_int8_convrot.safetensors](https://huggingface.co/Comfy-Org/Qwen-Image-2.1/blob/main/diffusion_models/qwen_image_2.1_int8_convrot.safetensors) | `diffusion_models/` |\n| [qwen3vl_8b_int8_convrot.safetensors](https://huggingface.co/Comfy-Org/Qwen-Image-2.1/blob/main/text_encoders/qwen3vl_8b_int8_convrot.safetensors) | `text_encoders/` |\n| [qwen_image_2.1_vae_bf16.safetensors](https://huggingface.co/Comfy-Org/Qwen-Image-2.1/blob/main/vae/qwen_image_2.1_vae_bf16.safetensors) | `vae/` |\n| [pano360_qwen21_edit_v1.safetensors](https://huggingface.co/Gogodr/qwen-image-2.1-edit-pano360-lora/blob/main/pano360_qwen21_edit_v1.safetensors) | `loras/` |\n\nAny subfolder of `loras/` works: just select the file in the LoRA node.\n\n## Custom nodes (in `ComfyUI/custom_nodes/`)\n- **ComfyUI-PerspToERP** (180 degree roll for pass 2): https://github.com/shisa84/ComfyUI-PerspToERP\n\nRestart ComfyUI after installing.\n\n## Settings to adapt\n- **Input photo**: load your photo. It becomes the centre of the panorama.\n- **Scene** (pass 1): one sentence of about 15-35 words describing the whole place, then the lighting.\n- **Style only** (pass 2): materials, colours and light, no furniture words. **Back** (pass 2): \"The green area is ...\", what is behind the camera.\n- Output is 1536x768; 2048x1024 also works and is sharper, but slower.\n- The photo is regenerated by the model, not pasted back pixel for pixel.\n- Pass 2 turns the panorama by 180 degrees, paints the middle third green (what is behind the camera) and asks Qwen-Image 2.1 *without* the 360 LoRA to fill it, with a latent mask so nothing else changes. This removes the left/right seam. To skip it, bypass the pass 2 group and plug the pass 1 decode into the save.\n"
+        "# 360 panorama from one photo - FLUX.2 Klein 9B (fast, 2 passes)\n\n## Models (in `ComfyUI/models/`)\n| File | Folder |\n|---|---|\n| [flux-2-klein-9b-fp8.safetensors](https://huggingface.co/black-forest-labs/FLUX.2-klein-9b-fp8/blob/main/flux-2-klein-9b-fp8.safetensors) | `diffusion_models/` |\n| [qwen_3_8b_fp8mixed.safetensors](https://huggingface.co/Comfy-Org/Flux-2-Klein-9B/blob/main/split_files/text_encoders/qwen_3_8b_fp8mixed.safetensors) | `text_encoders/` |\n| [flux2-vae.safetensors](https://huggingface.co/Comfy-Org/Flux-2-Klein-9B/blob/main/split_files/vae/flux2-vae.safetensors) | `vae/` |\n| [flux-2-klein-9B-360-erp-outpaint-lora_V1.safetensors](https://huggingface.co/nomadoor/flux-2-klein-9B-360-erp-outpaint-lora/blob/main/flux-2-klein-9B-360-erp-outpaint-lora_V1.safetensors) | `loras/` |\n\nAny subfolder of `loras/` works: just select the file in the LoRA node.\n\n## Custom nodes (in `ComfyUI/custom_nodes/`)\n- **ComfyUI-PerspToERP** (photo projection + 180 degree roll): https://github.com/shisa84/ComfyUI-PerspToERP\n\nRestart ComfyUI after installing.\n\n## Settings to adapt\n- **Input photo**: load your photo.\n- **Field of view** (`h_fov_deg`): 90 = normal interior photo, 110 = wide angle, 65 = portrait photo.\n- **Texts**: the fields whose title starts with \"EDIT ME\".\n- **Scene** is used by pass 1; **Style only** (no furniture words) and **Back** (what is behind the camera) are used by pass 2.\n- Pass 2 turns the panorama by 180 degrees, paints the back green and regenerates it: this fixes the left/right seam. To skip it, bypass the pass 2 group and plug the pass 1 decode into the save.\n- Klein redraws the photo: it is not pasted back pixel for pixel.\n- LoRA at 1.5 = photo better respected; 0.9 = photo enlarged.\n"
       ],
       "color": "#432",
       "bgcolor": "#653"
@@ -802,7 +1035,7 @@
           "name": "STRING",
           "type": "STRING",
           "links": [
-            15
+            26
           ]
         }
       ],
@@ -843,7 +1076,7 @@
           "name": "STRING",
           "type": "STRING",
           "links": [
-            17
+            24
           ]
         }
       ],
@@ -852,18 +1085,19 @@
       },
       "widgets_values": [
         "A futuristic all-white interior, glossy white seamless floor, smooth white lacquered surfaces, cool neutral daylight."
-      ]
+      ],
+      "title": "EDIT ME - Style only (materials, colours, light, NO furniture)"
     },
     {
       "id": 108,
       "type": "StringConcatenate",
       "pos": [
-        995,
-        255
+        1040,
+        330
       ],
       "size": [
-        415,
-        166
+        360,
+        180
       ],
       "flags": {},
       "order": 0,
@@ -883,7 +1117,7 @@
           "widget": {
             "name": "string_b"
           },
-          "link": 15
+          "link": 24
         },
         {
           "name": "delimiter",
@@ -899,7 +1133,7 @@
           "name": "STRING",
           "type": "STRING",
           "links": [
-            16
+            25
           ]
         }
       ],
@@ -907,22 +1141,22 @@
         "Node name for S&R": "StringConcatenate"
       },
       "widgets_values": [
-        "Fill the green area of this 360 equirectangular panorama.",
+        "Fill the green spaces according to the image. Outpaint as a seamless 360 equirectangular panorama (2:1). Keep the horizon level. Match left and right edges.",
         "",
         " "
       ],
-      "title": "Pass 2: fill instruction + back"
+      "title": "Trigger + style"
     },
     {
       "id": 106,
       "type": "StringConcatenate",
       "pos": [
-        995,
-        430
+        1040,
+        580
       ],
       "size": [
-        415,
-        166
+        360,
+        180
       ],
       "flags": {},
       "order": 0,
@@ -934,7 +1168,7 @@
           "widget": {
             "name": "string_a"
           },
-          "link": 16
+          "link": 25
         },
         {
           "name": "string_b",
@@ -942,66 +1176,7 @@
           "widget": {
             "name": "string_b"
           },
-          "link": 17
-        },
-        {
-          "name": "delimiter",
-          "type": "STRING",
-          "widget": {
-            "name": "delimiter"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            18
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "StringConcatenate"
-      },
-      "widgets_values": [
-        "",
-        "",
-        " "
-      ],
-      "title": "+ style"
-    },
-    {
-      "id": 109,
-      "type": "StringConcatenate",
-      "pos": [
-        995,
-        605
-      ],
-      "size": [
-        415,
-        166
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "string_a",
-          "type": "STRING",
-          "widget": {
-            "name": "string_a"
-          },
-          "link": 18
-        },
-        {
-          "name": "string_b",
-          "type": "STRING",
-          "widget": {
-            "name": "string_b"
-          },
-          "link": null
+          "link": 26
         },
         {
           "name": "delimiter",
@@ -1026,21 +1201,21 @@
       },
       "widgets_values": [
         "",
-        "Match the lighting, perspective and materials of the surrounding image. Keep everything outside the green area unchanged.",
+        "",
         " "
       ],
-      "title": "Pass 2 prompt = fill + back + style + match (no furniture)"
+      "title": "Pass 2 prompt = trigger + style + back (no furniture)"
     },
     {
       "id": 9,
-      "type": "PreviewImage",
+      "type": "SaveImage",
       "pos": [
-        760,
+        1170,
         1098
       ],
       "size": [
         380,
-        260
+        330
       ],
       "flags": {},
       "order": 0,
@@ -1049,7 +1224,15 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 19
+          "link": 27
+        },
+        {
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
         }
       ],
       "outputs": [
@@ -1060,71 +1243,18 @@
         }
       ],
       "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "widgets_values": [],
-      "title": "Pass 1 preview"
-    },
-    {
-      "id": 34,
-      "type": "QwenImage21Cache",
-      "pos": [
-        1890,
-        460
-      ],
-      "size": [
-        320,
-        120
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 20
-        },
-        {
-          "name": "device",
-          "type": "COMBO",
-          "widget": {
-            "name": "device"
-          },
-          "link": null
-        },
-        {
-          "name": "dtype",
-          "type": "COMBO",
-          "widget": {
-            "name": "dtype"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            33
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "QwenImage21Cache"
+        "Node name for S&R": "SaveImage"
       },
       "widgets_values": [
-        "auto",
-        "default"
+        "krea2_360/pano_klein_pass1"
       ],
-      "title": "Pass 2 model: no 360 LoRA"
+      "title": "Pass 1 result (saved)"
     },
     {
       "id": 50,
       "type": "ERPRoll",
       "pos": [
-        1250,
+        1670,
         940
       ],
       "size": [
@@ -1138,7 +1268,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 21
+          "link": 28
         },
         {
           "name": "green_band",
@@ -1154,9 +1284,8 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            23,
-            24,
-            32
+            29,
+            33
           ]
         }
       ],
@@ -1166,60 +1295,14 @@
       "widgets_values": [
         0.34
       ],
-      "title": "Roll 180 + green band (reference and mask)"
-    },
-    {
-      "id": 52,
-      "type": "ERPRoll",
-      "pos": [
-        1250,
-        1070
-      ],
-      "size": [
-        320,
-        92
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 22
-        },
-        {
-          "name": "green_band",
-          "type": "FLOAT",
-          "widget": {
-            "name": "green_band"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            25
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "ERPRoll"
-      },
-      "widgets_values": [
-        0.0
-      ],
-      "title": "Roll 180 (image to sample from)"
+      "title": "Roll 180 + green band behind the camera"
     },
     {
       "id": 51,
       "type": "PreviewImage",
       "pos": [
-        1250,
-        1200
+        1670,
+        1102
       ],
       "size": [
         380,
@@ -1232,7 +1315,7 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 23
+          "link": 29
         }
       ],
       "outputs": [
@@ -1246,60 +1329,106 @@
         "Node name for S&R": "PreviewImage"
       },
       "widgets_values": [],
-      "title": "Pass 2 band preview"
+      "title": "Pass 2 canvas preview"
     },
     {
-      "id": 53,
-      "type": "ImageColorToMask",
+      "id": 54,
+      "type": "CLIPTextEncode",
       "pos": [
-        1620,
+        2100,
         940
       ],
       "size": [
-        320,
-        82
+        360,
+        160
       ],
       "flags": {},
       "order": 0,
       "mode": 0,
       "inputs": [
         {
-          "name": "image",
-          "type": "IMAGE",
-          "link": 24
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 30
         },
         {
-          "name": "color",
-          "type": "INT",
-          "widget": {
-            "name": "color"
-          },
-          "link": null
+          "name": "clip",
+          "type": "CLIP",
+          "link": 31
         }
       ],
       "outputs": [
         {
-          "name": "MASK",
-          "type": "MASK",
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
           "links": [
-            28
+            35
           ]
         }
       ],
       "properties": {
-        "Node name for S&R": "ImageColorToMask"
+        "Node name for S&R": "CLIPTextEncode"
       },
       "widgets_values": [
-        65280
+        ""
       ],
-      "title": "Green band -> mask (65280 = #00FF00)"
+      "title": "Pass 2 +"
+    },
+    {
+      "id": 55,
+      "type": "CLIPTextEncode",
+      "pos": [
+        2100,
+        1170
+      ],
+      "size": [
+        360,
+        160
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": null
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 32
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            37
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "text, worst quality, blurry, ugly"
+      ],
+      "title": "Pass 2 -"
     },
     {
       "id": 58,
       "type": "VAEEncode",
       "pos": [
-        1620,
-        1070
+        2100,
+        1400
       ],
       "size": [
         320,
@@ -1312,12 +1441,12 @@
         {
           "name": "pixels",
           "type": "IMAGE",
-          "link": 25
+          "link": 33
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 26
+          "link": 34
         }
       ],
       "outputs": [
@@ -1325,7 +1454,8 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            27
+            36,
+            38
           ]
         }
       ],
@@ -1335,138 +1465,90 @@
       "widgets_values": []
     },
     {
-      "id": 63,
-      "type": "SetLatentNoiseMask",
+      "id": 56,
+      "type": "ReferenceLatent",
       "pos": [
-        1620,
-        1180
-      ],
-      "size": [
-        320,
-        46
-      ],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 27
-        },
-        {
-          "name": "mask",
-          "type": "MASK",
-          "link": 28
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            36
-          ]
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "SetLatentNoiseMask"
-      },
-      "widgets_values": [],
-      "title": "Only the band is regenerated"
-    },
-    {
-      "id": 54,
-      "type": "TextEncodeQwenImage21",
-      "pos": [
-        1990,
+        2510,
         940
       ],
       "size": [
         320,
-        196
+        88
       ],
       "flags": {},
       "order": 0,
       "mode": 0,
       "inputs": [
         {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 29
-        },
-        {
-          "name": "prompt",
-          "type": "STRING",
-          "widget": {
-            "name": "prompt"
-          },
-          "link": 30
-        },
-        {
-          "name": "negative_prompt",
-          "type": "STRING",
-          "widget": {
-            "name": "negative_prompt"
-          },
-          "link": null
-        },
-        {
-          "name": "resolution",
-          "type": "INT",
-          "widget": {
-            "name": "resolution"
-          },
-          "link": null
-        },
-        {
-          "name": "images.image_1",
-          "type": "IMAGE",
-          "shape": 7,
-          "link": 32
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 31
-        }
-      ],
-      "outputs": [
-        {
-          "name": "positive",
+          "name": "conditioning",
           "type": "CONDITIONING",
-          "links": [
-            34
-          ]
-        },
-        {
-          "name": "negative",
-          "type": "CONDITIONING",
-          "links": [
-            35
-          ]
+          "link": 35
         },
         {
           "name": "latent",
           "type": "LATENT",
-          "links": []
+          "link": 36
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            40
+          ]
         }
       ],
       "properties": {
-        "Node name for S&R": "TextEncodeQwenImage21"
+        "Node name for S&R": "ReferenceLatent"
       },
-      "widgets_values": [
-        "",
-        "",
-        0
+      "widgets_values": []
+    },
+    {
+      "id": 57,
+      "type": "ReferenceLatent",
+      "pos": [
+        2510,
+        1098
       ],
-      "title": "Pass 2 - fill the green band (resolution 0 = reference at its own size)"
+      "size": [
+        320,
+        88
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING",
+          "link": 37
+        },
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "link": 38
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            41
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ReferenceLatent"
+      },
+      "widgets_values": []
     },
     {
       "id": 60,
       "type": "KSampler",
       "pos": [
-        2360,
+        2880,
         940
       ],
       "size": [
@@ -1480,7 +1562,7 @@
         {
           "name": "model",
           "type": "MODEL",
-          "link": 33
+          "link": 39
         },
         {
           "name": "seed",
@@ -1525,17 +1607,17 @@
         {
           "name": "positive",
           "type": "CONDITIONING",
-          "link": 34
+          "link": 40
         },
         {
           "name": "negative",
           "type": "CONDITIONING",
-          "link": 35
+          "link": 41
         },
         {
           "name": "latent_image",
           "type": "LATENT",
-          "link": 36
+          "link": 42
         },
         {
           "name": "denoise",
@@ -1551,7 +1633,7 @@
           "name": "LATENT",
           "type": "LATENT",
           "links": [
-            37
+            43
           ]
         }
       ],
@@ -1561,7 +1643,7 @@
       "widgets_values": [
         102,
         "randomize",
-        25,
+        4,
         1.0,
         "euler",
         "simple",
@@ -1573,7 +1655,7 @@
       "id": 61,
       "type": "VAEDecode",
       "pos": [
-        2730,
+        3250,
         940
       ],
       "size": [
@@ -1587,12 +1669,12 @@
         {
           "name": "samples",
           "type": "LATENT",
-          "link": 37
+          "link": 43
         },
         {
           "name": "vae",
           "type": "VAE",
-          "link": 38
+          "link": 44
         }
       ],
       "outputs": [
@@ -1600,7 +1682,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            39
+            45
           ]
         }
       ],
@@ -1613,7 +1695,7 @@
       "id": 62,
       "type": "ERPRoll",
       "pos": [
-        2730,
+        3250,
         1098
       ],
       "size": [
@@ -1627,7 +1709,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 39
+          "link": 45
         },
         {
           "name": "green_band",
@@ -1643,7 +1725,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            40
+            46
           ]
         }
       ],
@@ -1667,14 +1749,46 @@
     ],
     [
       2,
-      32,
+      25,
       0,
-      33,
+      40,
       0,
-      "MODEL"
+      "IMAGE"
     ],
     [
       3,
+      40,
+      0,
+      43,
+      0,
+      "IMAGE"
+    ],
+    [
+      4,
+      40,
+      0,
+      36,
+      0,
+      "IMAGE"
+    ],
+    [
+      5,
+      36,
+      0,
+      6,
+      0,
+      "INT"
+    ],
+    [
+      6,
+      36,
+      1,
+      6,
+      1,
+      "INT"
+    ],
+    [
+      7,
       104,
       0,
       103,
@@ -1682,63 +1796,103 @@
       "STRING"
     ],
     [
-      4,
-      3,
-      0,
-      10,
-      0,
-      "CLIP"
-    ],
-    [
-      5,
+      8,
       103,
       0,
       10,
-      1,
+      0,
       "STRING"
     ],
     [
-      6,
-      25,
-      0,
-      10,
-      4,
-      "IMAGE"
-    ],
-    [
-      7,
-      1,
-      0,
-      10,
-      5,
-      "VAE"
-    ],
-    [
-      8,
-      33,
-      0,
-      7,
-      0,
-      "MODEL"
-    ],
-    [
       9,
-      10,
+      3,
       0,
-      7,
-      6,
-      "CONDITIONING"
+      10,
+      1,
+      "CLIP"
     ],
     [
       10,
-      10,
+      3,
+      0,
+      11,
       1,
-      7,
-      7,
-      "CONDITIONING"
+      "CLIP"
     ],
     [
       11,
+      40,
+      0,
+      12,
+      0,
+      "IMAGE"
+    ],
+    [
+      12,
+      1,
+      0,
+      12,
+      1,
+      "VAE"
+    ],
+    [
+      13,
+      10,
+      0,
+      13,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      14,
+      12,
+      0,
+      13,
+      1,
+      "LATENT"
+    ],
+    [
+      15,
+      11,
+      0,
+      14,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      16,
+      12,
+      0,
+      14,
+      1,
+      "LATENT"
+    ],
+    [
+      17,
+      32,
+      0,
+      7,
+      0,
+      "MODEL"
+    ],
+    [
+      18,
+      13,
+      0,
+      7,
+      6,
+      "CONDITIONING"
+    ],
+    [
+      19,
+      14,
+      0,
+      7,
+      7,
+      "CONDITIONING"
+    ],
+    [
+      20,
       6,
       0,
       7,
@@ -1746,7 +1900,7 @@
       "LATENT"
     ],
     [
-      12,
+      21,
       7,
       0,
       8,
@@ -1754,7 +1908,7 @@
       "LATENT"
     ],
     [
-      13,
+      22,
       1,
       0,
       8,
@@ -1762,39 +1916,31 @@
       "VAE"
     ],
     [
-      15,
-      105,
-      0,
-      108,
-      1,
-      "STRING"
-    ],
-    [
-      16,
-      108,
-      0,
-      106,
-      0,
-      "STRING"
-    ],
-    [
-      17,
+      24,
       107,
       0,
+      108,
+      1,
+      "STRING"
+    ],
+    [
+      25,
+      108,
+      0,
+      106,
+      0,
+      "STRING"
+    ],
+    [
+      26,
+      105,
+      0,
       106,
       1,
       "STRING"
     ],
     [
-      18,
-      106,
-      0,
-      109,
-      0,
-      "STRING"
-    ],
-    [
-      19,
+      27,
       8,
       0,
       9,
@@ -1802,15 +1948,7 @@
       "IMAGE"
     ],
     [
-      20,
-      2,
-      0,
-      34,
-      0,
-      "MODEL"
-    ],
-    [
-      21,
+      28,
       8,
       0,
       50,
@@ -1818,15 +1956,7 @@
       "IMAGE"
     ],
     [
-      22,
-      8,
-      0,
-      52,
-      0,
-      "IMAGE"
-    ],
-    [
-      23,
+      29,
       50,
       0,
       51,
@@ -1834,111 +1964,111 @@
       "IMAGE"
     ],
     [
-      24,
-      50,
-      0,
-      53,
-      0,
-      "IMAGE"
-    ],
-    [
-      25,
-      52,
-      0,
-      58,
-      0,
-      "IMAGE"
-    ],
-    [
-      26,
-      1,
-      0,
-      58,
-      1,
-      "VAE"
-    ],
-    [
-      27,
-      58,
-      0,
-      63,
-      0,
-      "LATENT"
-    ],
-    [
-      28,
-      53,
-      0,
-      63,
-      1,
-      "MASK"
-    ],
-    [
-      29,
-      3,
-      0,
-      54,
-      0,
-      "CLIP"
-    ],
-    [
       30,
-      109,
+      106,
       0,
       54,
-      1,
+      0,
       "STRING"
     ],
     [
       31,
-      1,
+      3,
       0,
       54,
-      5,
-      "VAE"
+      1,
+      "CLIP"
     ],
     [
       32,
-      50,
+      3,
       0,
-      54,
-      4,
-      "IMAGE"
+      55,
+      1,
+      "CLIP"
     ],
     [
       33,
+      50,
+      0,
+      58,
+      0,
+      "IMAGE"
+    ],
+    [
       34,
+      1,
+      0,
+      58,
+      1,
+      "VAE"
+    ],
+    [
+      35,
+      54,
+      0,
+      56,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      36,
+      58,
+      0,
+      56,
+      1,
+      "LATENT"
+    ],
+    [
+      37,
+      55,
+      0,
+      57,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      38,
+      58,
+      0,
+      57,
+      1,
+      "LATENT"
+    ],
+    [
+      39,
+      32,
       0,
       60,
       0,
       "MODEL"
     ],
     [
-      34,
-      54,
+      40,
+      56,
       0,
       60,
       6,
       "CONDITIONING"
     ],
     [
-      35,
-      54,
-      1,
+      41,
+      57,
+      0,
       60,
       7,
       "CONDITIONING"
     ],
     [
-      36,
-      63,
+      42,
+      6,
       0,
       60,
       8,
       "LATENT"
     ],
     [
-      37,
+      43,
       60,
       0,
       61,
@@ -1946,7 +2076,7 @@
       "LATENT"
     ],
     [
-      38,
+      44,
       1,
       0,
       61,
@@ -1954,7 +2084,7 @@
       "VAE"
     ],
     [
-      39,
+      45,
       61,
       0,
       62,
@@ -1962,7 +2092,7 @@
       "IMAGE"
     ],
     [
-      40,
+      46,
       62,
       0,
       59,
@@ -1976,8 +2106,8 @@
       "bounding": [
         0,
         0,
-        1420,
-        780
+        1450,
+        790
       ],
       "color": "#a1309b",
       "font_size": 24,
@@ -1989,31 +2119,31 @@
         1500,
         0,
         730,
-        600
+        410
       ],
       "color": "#3f789e",
       "font_size": 24,
       "flags": {}
     },
     {
-      "title": "2 · Photo",
+      "title": "2 · Photo -> 360 canvas",
       "bounding": [
         2310,
         0,
-        380,
-        480
+        1180,
+        700
       ],
       "color": "#8A8",
       "font_size": 24,
       "flags": {}
     },
     {
-      "title": "3 · Pass 1: panorama (Qwen-Image 2.1, 25 steps)",
+      "title": "3 · Pass 1: panorama (Klein 9B, 4 steps)",
       "bounding": [
         0,
         860,
-        1150,
-        640
+        1570,
+        648
       ],
       "color": "#b06634",
       "font_size": 24,
@@ -2022,10 +2152,10 @@
     {
       "title": "4 · Pass 2: back + left/right seam, result",
       "bounding": [
-        1230,
+        1650,
         860,
-        2350,
-        640
+        2470,
+        648
       ],
       "color": "#88A",
       "font_size": 24,
